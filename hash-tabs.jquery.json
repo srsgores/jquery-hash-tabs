@@ -1,0 +1,28 @@
+{
+  "name": "hash-tabs",
+  "title": "Hash Tabs",
+  "description": "URL-sensitive tab plugin for jQuery",
+  "version": "1.0.0",
+  "homepage": "https://github.com/srsgores/hash-tabs",
+  "author": {
+    "name": "Sean Goresht",
+    "url": "https://github.com/srsgores"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/srsgores/hash-tabs"
+  },
+  "bugs": "",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
+  "dependencies": {
+    "jquery": "~*"
+  },
+  "keywords": [
+    "jquery-plugin"
+  ]
+}

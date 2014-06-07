@@ -1,0 +1,9 @@
+load:
+- test/libs/equiv.js
+- test/libs/QUnitAdapter.js
+- bower_components/jquery/dist/jquery.js
+- bower_components/qunit/qunit/qunit.js
+- src/*.js
+
+test:
+- test/*.js

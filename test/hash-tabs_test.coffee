@@ -38,32 +38,69 @@
 		# This will run before each test in this module.
 		setup: ->
 			@elems = $("#qunit-fixture").children()
-
+			@$tabContainer = $(".tab-container")
 	test "is chainable", ->
 		expect 1
 
 		# Not a bad test to run on collection methods.
-		strictEqual @elems.hash-tabs(), @elems, "should be chainable"
-
-	test "is hash-tabs", ->
-		expect 1
-		strictEqual @elems.hash-tabs().text(), "hash-tabs0hash-tabs1hash-tabs2", "should be hash-tabs"
-
-	module "jQuery.hash-tabs"
-	test "is hash-tabs", ->
+		strictEqual @elems.hashTabs(), @elems, "should be chainable"
+	test "hides non-active tab panes", ->
 		expect 2
-		strictEqual $.hash-tabs(), "hash-tabs.", "should be hash-tabs"
-		strictEqual $.hash-tabs(punctuation: "!"), "hash-tabs!", "should be thoroughly hash-tabs"
 
-	module ":hash-tabs selector",
-
-		# This will run before each test in this module.
-		setup: ->
-			@elems = $("#qunit-fixture").children()
-
-	test "is hash-tabs", ->
+		$tabs = @$tabContainer.first().hashTabs()
+		console.dir $tabs
+		strictEqual $tabs.find("section:first").is(":visible"), true
+		strictEqual $tabs.find("section").not(":first").is("visible"), false
+	test "has correct hash tabs class", ->
 		expect 1
+		equal @$tabContainer.first().hashTabs().hasClass("hash-tabs"), true
+	test "throws correct error when no navigation exists", ->
+		throws(->
+			@$tabContainer.eq(2).hashTabs()
+		, ReferenceError)
+	test "Updates href on click", ->
+		@$tabContainer.find("a[href*='#tab2']").trigger("click")
+		strictEqual(window.location.hash, "#tab2")
+	test "displays correct tab, corresponding to current browser URL", ->
+		expect 2
+		window.location.hash = "tab2"
+		$tabs = @$tabContainer.first().hashTabs()
+		$tabSections = $tabs.find("section")
+		$tab2 = $tabSections.eq(2)
+		equal($tab2.is(":visible"), true)
+		equal($tabSections.filter($tab2).is(":visible"), false)
+	test "Shows correct tab when overridden in options", ->
+		expect 3
+		$tabs = @$tabContainer.first().hashTabs({
+			initialTabToShow: 2
+		})
+		$tabSections = $tabs.find("section")
+		$tab2 = $tabSections.eq(2)
+		equal($tab2.is(":visible"), true)
+		equal($tabSections.filter($tab2).is(":visible"), false)
+		equal(window.location.hash, "#tab2")
+	test "Adds active class to clicked tab", ->
+		$tabs = @$tabContainer.first().hashTabs()
+		$firstTab = $tabs.find("nav a:first").trigger("click")
+		equal($firstTab.hasClass("active"), true)
+	test "Removes active class to previously-clicked tab", ->
+		$tabs = @$tabContainer.first().hashTabs()
+		$firstTab = $tabs.find("nav a:first").trigger("click")
+		$secondTab = $tabs.find("nav a").eq(2).trigger("click")
+		equal($firstTab.hasClass("active"), false)
+	test "Contains wai-aria accessibility tags", ->
+		expect 7
+		$tabs = @$tabContainer.first().hashTabs()
+		$nav = $tabs.find("nav:first")
+		$navButtons = $nav.find("a")
+		$tabPanels = $tabs.find("section")
+		equal($nav.is("[role*='tablist']"), true)
+		equal($navButtons.is("[tabindex]"), true)
+		equal($navButtons.is("[aria-controls]"), true)
+		equal($navButtons.is("[aria-expanded]"), true)
+		equal($navButtons.is("[aria-selected]"), true)
+		equal($navButtons.is("[role*='tab']"), true)
+		equal($tabPanels.is("[role*='tabpanel']"), true)
+		equal($tabPanels.is("[aria-labeledby]"), true)
 
-		# Use deepEqual & .get() when comparing jQuery objects.
-		deepEqual @elems.filter(":hash-tabs").get(), @elems.last().get(), "knows hash-tabs when it sees it"
 ) jQuery

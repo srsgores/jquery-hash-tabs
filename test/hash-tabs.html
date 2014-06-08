@@ -9,7 +9,7 @@
 		<link rel = "stylesheet" href = "../bower_components/qunit/qunit/qunit.css" media = "screen">
 		<script src = "../bower_components/qunit/qunit/qunit.js"></script>
 		<!-- Load local lib and tests. -->
-		<script src = "../src/hash-tabs.js"></script>
+		<script src = "../src/jquery.hash-tabs.js"></script>
 		<script src = "hash-tabs_test.js"></script>
 		<!-- Removing access to jQuery and $. But it'll still be available as _$, if you REALLY want to mess around with jQuery in the console. REMEMBER WE ARE TESTING A PLUGIN HERE, THIS HELPS ENSURE BEST PRACTICES. REALLY. -->
 		<script>window._$ = jQuery.noConflict(true);</script>
@@ -20,6 +20,23 @@
 			<span>lame test markup</span>
 			<span>normal test markup</span>
 			<span>awesome test markup</span>
+			<article class = "tab-container">
+				<nav class = "tab-nav">
+					<ul>
+						<li><a href = "#tab1">Tab 1</a></li>
+						<li><a href = "#tab2">Tab 2</a></li>
+						<li><a href = "#tab3">Tab 3</a></li>
+					</ul>
+				</nav>
+				<section id = "tab1">Tab 1 content</section>
+				<section id = "tab2">Tab 2 content</section>
+				<section id = "tab3">Tab 3 content</section>
+			</article>
+			<article class="tab-container" id="non-existant-nav">
+				<section id = "non-existant-tab1">Tab 1 content</section>
+				<section id = "non-existant-tab2">Tab 2 content</section>
+				<section id = "non-existant-tab3">Tab 3 content</section>
+			</article>
 		</div>
 	</body>
 </html>

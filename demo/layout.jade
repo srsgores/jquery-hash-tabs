@@ -1,0 +1,29 @@
+//
+	hash-tabs
+	File Name: demo
+	Author: Sean
+	Date: 2014-06-07
+	Description: Hash tabs demo file
+
+doctype html
+html.no-js
+head
+block head
+	block header-meta
+		meta(charset = "utf-8")
+		meta(http-equiv = "X-UA-Compatible", content = "IE=edge,chrome=1")
+		title Hash Tabs - Ultimate URL-Sensitive jQuery Tab Plugin
+		meta(name = "description", content = "#{description}")
+		meta(name = "viewport", content = "width=device-width, initial-scale=1")
+		block header-styles
+			link(rel = "stylesheet", href = "../src/css/jquery.hash-tabs.css")
+body
+	header(role="banner")
+		block header
+	main(role = "main")
+		block content
+	block footer
+		footer(role = "contentinfo")
+	block scripts
+		script(src = "../bower_components/jquery/dist/jquery.min.js")
+		script(src = "../src/jquery.hash-tabs.js")

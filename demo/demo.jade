@@ -1,0 +1,46 @@
+//
+	hash-tabs
+	File Name: demo
+	Author: Sean
+	Date: 2014-06-07
+	Description: Hash tabs demo file
+
+include mixins
+
+extends layout
+
+block header
+	h1 Hash Tabs
+	p The ultimate jQuery tab plugin for
+		em hash-sensitive
+		| tabs
+	ul.share-options
+		li
+			a Fork
+		li
+			a Tweet
+		li
+			a Share on Google+
+
+block content
+	section#examples
+		h1 Examples
+		section#simple-example
+			h1 Simple
+			div.example
+				- tabs = []
+				- for (var i = 0; i < 4; i++) {
+					- tabs.push({title: "Tab " + i, url: "tab" + i, content: "This is content for tab " + i})
+				- }
+				+hashTabs(tabs)
+	section#quick-start
+		h1 Quick Start
+		p Use any of the following methods:
+		ol
+			li Bower
+			li Fork
+
+block scripts
+	script(src = "../bower_components/jquery/dist/jquery.min.js")
+	script(src = "../src/jquery.hash-tabs.js")
+	script(src = "scripts/demo.js")

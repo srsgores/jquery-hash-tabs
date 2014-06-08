@@ -38,33 +38,85 @@
     "use strict";
     module("jQuery#hash-tabs", {
       setup: function() {
-        return this.elems = $("#qunit-fixture").children();
+        this.elems = $("#qunit-fixture").children();
+        return this.$tabContainer = $(".tab-container");
       }
     });
     test("is chainable", function() {
       expect(1);
-      return strictEqual(this.elems.hash - tabs(), this.elems, "should be chainable");
+      return strictEqual(this.elems.hashTabs(), this.elems, "should be chainable");
     });
-    test("is hash-tabs", function() {
-      expect(1);
-      return strictEqual(this.elems.hash - tabs().text(), "hash-tabs0hash-tabs1hash-tabs2", "should be hash-tabs");
-    });
-    module("jQuery.hash-tabs");
-    test("is hash-tabs", function() {
+    test("hides non-active tab panes", function() {
+      var $tabs;
       expect(2);
-      strictEqual($.hash - tabs(), "hash-tabs.", "should be hash-tabs");
-      return strictEqual($.hash - tabs({
-        punctuation: "!"
-      }), "hash-tabs!", "should be thoroughly hash-tabs");
+      $tabs = this.$tabContainer.first().hashTabs();
+      console.dir($tabs);
+      strictEqual($tabs.find("section:first").is(":visible"), true);
+      return strictEqual($tabs.find("section").not(":first").is("visible"), false);
     });
-    module(":hash-tabs selector", {
-      setup: function() {
-        return this.elems = $("#qunit-fixture").children();
-      }
-    });
-    return test("is hash-tabs", function() {
+    test("has correct hash tabs class", function() {
       expect(1);
-      return deepEqual(this.elems.filter(":hash-tabs").get(), this.elems.last().get(), "knows hash-tabs when it sees it");
+      return equal(this.$tabContainer.first().hashTabs().hasClass("hash-tabs"), true);
+    });
+    test("throws correct error when no navigation exists", function() {
+      return throws(function() {
+        return this.$tabContainer.eq(2).hashTabs();
+      }, ReferenceError);
+    });
+    test("Updates href on click", function() {
+      this.$tabContainer.find("a[href*='#tab2']").trigger("click");
+      return strictEqual(window.location.hash, "#tab2");
+    });
+    test("displays correct tab, corresponding to current browser URL", function() {
+      var $tab2, $tabSections, $tabs;
+      expect(2);
+      window.location.hash = "tab2";
+      $tabs = this.$tabContainer.first().hashTabs();
+      $tabSections = $tabs.find("section");
+      $tab2 = $tabSections.eq(2);
+      equal($tab2.is(":visible"), true);
+      return equal($tabSections.filter($tab2).is(":visible"), false);
+    });
+    test("Shows correct tab when overridden in options", function() {
+      var $tab2, $tabSections, $tabs;
+      expect(3);
+      $tabs = this.$tabContainer.first().hashTabs({
+        initialTabToShow: 2
+      });
+      $tabSections = $tabs.find("section");
+      $tab2 = $tabSections.eq(2);
+      equal($tab2.is(":visible"), true);
+      equal($tabSections.filter($tab2).is(":visible"), false);
+      return equal(window.location.hash, "#tab2");
+    });
+    test("Adds active class to clicked tab", function() {
+      var $firstTab, $tabs;
+      $tabs = this.$tabContainer.first().hashTabs();
+      $firstTab = $tabs.find("nav a:first").trigger("click");
+      return equal($firstTab.hasClass("active"), true);
+    });
+    test("Removes active class to previously-clicked tab", function() {
+      var $firstTab, $secondTab, $tabs;
+      $tabs = this.$tabContainer.first().hashTabs();
+      $firstTab = $tabs.find("nav a:first").trigger("click");
+      $secondTab = $tabs.find("nav a").eq(2).trigger("click");
+      return equal($firstTab.hasClass("active"), false);
+    });
+    return test("Contains wai-aria accessibility tags", function() {
+      var $nav, $navButtons, $tabPanels, $tabs;
+      expect(7);
+      $tabs = this.$tabContainer.first().hashTabs();
+      $nav = $tabs.find("nav:first");
+      $navButtons = $nav.find("a");
+      $tabPanels = $tabs.find("section");
+      equal($nav.is("[role*='tablist']"), true);
+      equal($navButtons.is("[tabindex]"), true);
+      equal($navButtons.is("[aria-controls]"), true);
+      equal($navButtons.is("[aria-expanded]"), true);
+      equal($navButtons.is("[aria-selected]"), true);
+      equal($navButtons.is("[role*='tab']"), true);
+      equal($tabPanels.is("[role*='tabpanel']"), true);
+      return equal($tabPanels.is("[aria-labeledby]"), true);
     });
   })(jQuery);
 

@@ -1,7 +1,9 @@
 {
   "name": "hash-tabs",
   "version": "1.0.0",
-  "dependencies": {},
+  "dependencies": {
+    "sassboilerplate": "*"
+  },
   "devDependencies": {
     "qunit": "~1.12.0",
     "jquery": "~*"

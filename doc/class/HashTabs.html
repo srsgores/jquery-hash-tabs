@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset='UTF-8'>
+  <title>CoffeeScript API Documentation</title>
+  <script src='../javascript/application.js'></script>
+  <script src='../javascript/search.js'></script>
+  <link rel='stylesheet' href='../stylesheets/application.css' type='text/css'>
+</head>
+  <body>
+    <div id='base' data-path='../'></div>
+<div id='header'>
+  <div id='menu'>
+    <a href='../extra/README.md.html' title='Hash-tabs'>
+      Hash-tabs
+    </a>
+    &raquo;
+    <a href='../alphabetical_index.html' title='Index'>
+      Index
+    </a>
+    &raquo;
+    <span class='title'>HashTabs</span>
+  </div>
+</div>
+    <div id='content'>
+      <h1>
+        Class:
+        HashTabs
+      </h1>
+      <table class='box'>
+        <tr>
+          <td>Defined in:</td>
+          <td>src\jquery.hash-tabs.coffee</td>
+        </tr>
+      </table>
+      <h2>Overview</h2>
+      <div class='docstring'>
+  <p>Class for creating accessible tabs with jQuery
+    $(&quot;.myTabContainer&quot;).hashTabs();</p>
+</div>
+<div class='tags'>
+</div>
+      <h2>Variables Summary</h2>
+      <dl class='constants'>
+  <dt id='defaults-variable'>
+    defaults
+    =
+  </dt>
+  <dd>
+    <pre><code class='coffeescript'>{
+
+  &#47;*
+  @property [String] jQuery selector for individual tab panes (or tab content)
+   *&#47;
+  tabPanelSelector: &quot;section&quot;,
+
+  &#47;*
+  @property [String] jQuery selector for main navigation element, with tab buttons or links
+   *&#47;
+  tabNavSelector: &quot;nav&quot;,
+
+  &#47;*
+  @property [String] jQuery selector for anchor tags or links contained within the main navigation element
+   *&#47;
+  tabButtonSelector: &quot;a&quot;,
+
+  &#47;*
+  			@property [Integer] initial tab&#39;s index to show when the tabs are initialized
+  			@note Initial tab will default to first tab, or index of 0
+  			@note You must provide a non-negative Integer within the range of the current active tabs
+   *&#47;
+  initialTabIndex: 0,
+
+  &#47;*
+  			@property [String] (optional) initial tab&#39;s `id` or hash to show when tabs are initialized
+  			@example tab2
+  			@note You must provide a non-negative Integer within the range of the current active tabs
+   *&#47;
+  initialTabId: null,
+
+  &#47;*
+  			@property [String] class to append to initialized hash tabs
+  			@note Styles are applied using the `.hash-tabs` class.  Expect unexpected output if you override this setting
+   *&#47;
+  tabContainerClass: &quot;hash-tabs&quot;,
+
+  &#47;*
+  			@property [Boolean] whether keyboard navigation is enabled
+  			@note anchor tag tab element must be selected (using tab) in order for keyboard navigation to work
+  			@note keyboard navigation binds to the left and right arrow keys on the keyboard
+   *&#47;
+  keyboard: true,
+
+  &#47;*
+  			@property [Boolean] whether to apply smooth scrolling, in which the screen scrolls up to the top of the tab navigation panel when any tab is clicked
+  			@note Enabling smooth scrolling will override the default browser behaviour, in which the browser &quot;jumps&quot; to the top of an anchor
+   *&#47;
+  smoothScroll: false,
+
+  &#47;*
+  @property [Boolean] whether to enable debugging logging statements from within the console.  Enable this if you are having trouble identifying an error
+   *&#47;
+  debug: false
+}</code></pre>
+    
+  </dd>
+</dl>
+      <h2>Instance Method Summary</h2>
+      <ul class='summary'>
+  <li>
+    <span class='signature'>
+      <a href='#generateTabs-dynamic'>
+        #
+(void)
+<b>generateTabs</b><span>($tabContainer)</span>
+      </a>
+    </span>
+    <span class='desc'>
+      Generate tabs based off of a selector 
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#listenClick-dynamic'>
+        #
+(*jQuery)
+<b>listenClick</b><span>($tabButtons)</span>
+      </a>
+    </span>
+    <span class='desc'>
+      Listen to click events on the tab anchor elements, showing the corresponding tab, and adding WAI-ARIA attributes 
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#updateHash-dynamic'>
+        #
+(void)
+<b>updateHash</b><span>()</span>
+      </a>
+    </span>
+    <span class='desc'>
+      Update the document&#39;s current URL to match that of the initially-configured and selected tab 
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#triggerTab-dynamic'>
+        #
+(void)
+<b>triggerTab</b><span>(url)</span>
+      </a>
+    </span>
+    <span class='desc'>
+      Trigger a given tab, provided its <code>id</code> <pre><code>$(&quot;.myTabs&quot;).hashTabs(&quot;triggerTab&quot;, &quot;chocolates&quot;) // triggers tab with id #chocolates
+</code></pre>
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#triggerTabByIndex-dynamic'>
+        #
+(void)
+<b>triggerTabByIndex</b><span>(index)</span>
+      </a>
+    </span>
+    <span class='desc'>
+      Trigger a given tab, provided its index <pre><code>$(&quot;.myTabs&quot;).hashTabs(&quot;triggerTabByIndex&quot;, 3) // triggers tab with index 3
+</code></pre>
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#listenKeyboard-dynamic'>
+        #
+(void)
+<b>listenKeyboard</b><span>()</span>
+      </a>
+    </span>
+    <span class='desc'>
+      Listen to keypress events of the left and right arrow keys, to enable keyboard tab navigation 
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#selectPrevious-dynamic'>
+        #
+(void)
+<b>selectPrevious</b><span>()</span>
+      </a>
+    </span>
+    <span class='desc'>
+      Select and trigger clicking of the left-most tab of the currently-active tab <pre><code>$(&quot;.myTabs&quot;).hashTabs(&quot;selectPrevious&quot;) // triggers left-most tab to current tab
+</code></pre>
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#selectNext-dynamic'>
+        #
+(void)
+<b>selectNext</b><span>()</span>
+      </a>
+    </span>
+    <span class='desc'>
+      Select and trigger clicking of the right-most tab of the currently-active tab <pre><code>$(&quot;.myTabs&quot;).hashTabs(&quot;selectNext&quot;) // triggers right-most tab to current tab
+</code></pre>
+    </span>
+  </li>
+</ul>
+      <h2>Constructor Details</h2>
+      <div class='methods'>
+  <div class='method_details'>
+    <p class='signature' id='constructor-dynamic'>
+      #
+(void)
+<b>constructor</b><span>(el, options)</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <p>Construct a new instance of HashTabs</p>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>el</span>
+      <span class='type'>
+        (
+          <tt>*jQuery</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>tab container selector </span>
+    </li>
+    <li>
+      <span class='name'>options</span>
+      <span class='type'>
+        (
+          <tt>Array</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>array for constructing new tabs </span>
+    </li>
+  </ul>
+</div>
+  </div>
+</div>
+      <h2>Instance Method Details</h2>
+      <div class='methods'>
+  <div class='method_details'>
+    <p class='signature' id='generateTabs-dynamic'>
+      #
+(void)
+<b>generateTabs</b><span>($tabContainer)</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <p>Generate tabs based off of a selector</p>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>$tabContainer</span>
+      <span class='type'>
+        (
+          <tt>*jQuery</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>tab container jQuery object </span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='listenClick-dynamic'>
+      #
+(*jQuery)
+<b>listenClick</b><span>($tabButtons)</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <p>Listen to click events on the tab anchor elements, showing the corresponding tab, and adding WAI-ARIA attributes</p>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>$tabButtons</span>
+      <span class='type'>
+        (
+          <tt>*jQuery</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>all tab anchor tags on a tabset </span>
+    </li>
+  </ul>
+  <h3>Returns:</h3>
+  <ul class='return'>
+    <li>
+      <span class='type'></span>
+      (
+        <tt>*jQuery</tt>
+      )
+      &mdash;
+      <span class='desc'>$tabButtons </span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='updateHash-dynamic'>
+      #
+(void)
+<b>updateHash</b><span>()</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <div class='note'>
+    <strong>Note:</strong>
+    Only fired once, when plugin initialized 
+  </div>
+  <p>Update the document&#39;s current URL to match that of the initially-configured and selected tab</p>
+</div>
+<div class='tags'>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='triggerTab-dynamic'>
+      #
+(void)
+<b>triggerTab</b><span>(url)</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <div class='note'>
+    <strong>Note:</strong>
+    A corresponding anchor (<code>&lt;a&gt;</code>) tag with the corresponding hash must be present in the tab navigation element 
+  </div>
+  <p>Trigger a given tab, provided its <code>id</code></p><pre><code>$(&quot;.myTabs&quot;).hashTabs(&quot;triggerTab&quot;, &quot;chocolates&quot;) // triggers tab with id #chocolates
+</code></pre>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>url</span>
+      <span class='type'>
+        (
+          <tt>String</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>the hash or <code>id</code> of the corresponding tab and anchor </span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='triggerTabByIndex-dynamic'>
+      #
+(void)
+<b>triggerTabByIndex</b><span>(index)</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <div class='note'>
+    <strong>Note:</strong>
+    A corresponding anchor (<code>&lt;a&gt;</code>) tag with the corresponding hash must be present in the tab navigation element 
+  </div>
+  <p>Trigger a given tab, provided its index</p><pre><code>$(&quot;.myTabs&quot;).hashTabs(&quot;triggerTabByIndex&quot;, 3) // triggers tab with index 3
+</code></pre>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>non-negative</span>
+      <span class='type'>
+        (
+          <tt>Integer</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>integer, corresponding to the (nth + 1) tab to display </span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='listenKeyboard-dynamic'>
+      #
+(void)
+<b>listenKeyboard</b><span>()</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <div class='note'>
+    <strong>Note:</strong>
+    tabs will <em>cycle</em> in a clockwise direction**.  For example, if you are on the last tab to the right, selecting next will fold back over to the first tab (0) to the left 
+  </div>
+  <p>Listen to keypress events of the left and right arrow keys, to enable keyboard tab navigation</p>
+</div>
+<div class='tags'>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='selectPrevious-dynamic'>
+      #
+(void)
+<b>selectPrevious</b><span>()</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <p>Select and trigger clicking of the left-most tab of the currently-active tab</p><pre><code>$(&quot;.myTabs&quot;).hashTabs(&quot;selectPrevious&quot;) // triggers left-most tab to current tab
+</code></pre>
+</div>
+<div class='tags'>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='selectNext-dynamic'>
+      #
+(void)
+<b>selectNext</b><span>()</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <p>Select and trigger clicking of the right-most tab of the currently-active tab</p><pre><code>$(&quot;.myTabs&quot;).hashTabs(&quot;selectNext&quot;) // triggers right-most tab to current tab
+</code></pre>
+</div>
+<div class='tags'>
+</div>
+  </div>
+</div>
+    </div>
+    <div id='footer'>
+  June 09, 14 16:59:11 by
+  <a href='https://github.com/coffeedoc/codo' title='CoffeeScript API documentation generator'>
+    Codo
+  </a>
+  2.0.8
+  &#10034;
+  Press H to see the keyboard shortcuts
+  &#10034;
+  <a href='http://twitter.com/netzpirat' target='_parent'>@netzpirat</a>
+  &#10034;
+  <a href='http://twitter.com/_inossidabile' target='_parent'>@_inossidabile</a>
+</div>
+<iframe id='search_frame'></iframe>
+<div id='fuzzySearch'>
+  <input type='text'>
+  <ol></ol>
+</div>
+<div id='help'>
+  <p>
+    Quickly fuzzy find classes, mixins, methods, file:
+  </p>
+  <ul>
+    <li>
+      <span>T</span>
+      Open fuzzy finder dialog
+    </li>
+  </ul>
+  <p>
+    Control the navigation frame:
+  </p>
+  <ul>
+    <li>
+      <span>L</span>
+      Toggle list view
+    </li>
+    <li>
+      <span>C</span>
+      Show class list
+    </li>
+    <li>
+      <span>I</span>
+      Show mixin list
+    </li>
+    <li>
+      <span>F</span>
+      Show file list
+    </li>
+    <li>
+      <span>M</span>
+      Show method list
+    </li>
+    <li>
+      <span>E</span>
+      Show extras list
+    </li>
+  </ul>
+  <p>
+    You can focus and blur the search input:
+  </p>
+  <ul>
+    <li>
+      <span>S</span>
+      Focus search input
+    </li>
+    <li>
+      <span>Esc</span>
+      Blur search input
+    </li>
+  </ul>
+</div>
+  </body>
+</html>

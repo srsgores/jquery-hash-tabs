@@ -20,7 +20,7 @@
     /*
     	Class for creating accessible tabs with jQuery
     	@example create tabs from nav and container element
-    		$(".myTabContainer").hash-tabs();
+    		$(".myTabContainer").hashTabs();
      */
     var HashTabs;
     return HashTabs = (function() {
@@ -28,8 +28,39 @@
         tabPanelSelector: "section",
         tabNavSelector: "nav",
         tabButtonSelector: "a",
-        initialTabToShow: 0,
+
+        /*
+        			@property [Integer] initial tab's index to show when the tabs are initialized
+        			@note Initial tab will default to first tab, or index of 0
+        			@note You must provide a non-negative Integer within the range of the current active tabs
+         */
+        initialTabIndex: 0,
+
+        /*
+        			@property [String] (optional) initial tab's `id` or hash to show when tabs are initialized
+        			@example tab2
+        			@note You must provide a non-negative Integer within the range of the current active tabs
+         */
+        initialTabId: null,
+
+        /*
+        			@property [String] class to append to initialized hash tabs
+        			@note Styles are applied using the `.hash-tabs` class.  Expect unexpected output if you override this setting
+         */
         tabContainerClass: "hash-tabs",
+
+        /*
+        			@property [Boolean] whether keyboard navigation is enabled
+        			@note anchor tag tab element must be selected (using tab) in order for keyboard navigation to work
+        			@note keyboard navigation binds to the left and right arrow keys on the keyboard
+         */
+        keyboard: true,
+
+        /*
+        			@property [Boolean] whether to apply smooth scrolling, in which the screen scrolls up to the top of the tab navigation panel when any tab is clicked
+        			@note Enabling smooth scrolling will override the default browser behaviour, in which the browser "jumps" to the top of an anchor
+         */
+        smoothScroll: false,
         debug: false
       };
 
@@ -48,6 +79,9 @@
           throw new ReferenceError("The selector passed in does not contain any items");
         }
         this.generateTabs(this.$selector);
+        if (options.debug === true) {
+          console.dir(this.$selector);
+        }
       }
 
 
@@ -77,8 +111,10 @@
           });
           $associatedTab = self.$contentPanes.filter($(this)[0].hash);
           $associatedTab[0].correspondingTabButton = $(this);
+          $(this)[0].index = index;
           return $(this)[0].correspondingTabContent = $associatedTab;
         });
+        this.tabsLength = this.$tabButtons.length;
         this.$tabPanes = $tabContainer.find(this.options.tabPanelSelector).hide().each(function() {
           return $(this).attr({
             "role": "tabpanel",
@@ -88,14 +124,31 @@
         this.$activeTab = this.$tabPanes.eq(this.options.initialTabToShow);
         this.$activeTabButton = this.$tabButtons.eq(this.options.initialTabToShow);
         this.listenClick(this.$tabButtons);
-        return this.updateHash();
+        this.updateHash();
+        if (this.options.keyboard === true) {
+          return this.listenKeyboard();
+        }
       };
+
+
+      /*
+      		Listen to click events on the tab anchor elements, showing the corresponding tab, and adding WAI-ARIA attributes
+      
+      		@param [*jQuery] $tabButtons all tab anchor tags on a tabset
+      		@return [*jQuery] $tabButtons
+       */
 
       HashTabs.prototype.listenClick = function($tabButtons) {
         var self;
         self = this;
         return $tabButtons.on("click", function() {
           var _ref;
+          if (self.options.debug === true) {
+            console.log("Active tab is ");
+            if (self.options.debug === true) {
+              console.dir(self.$activeTab);
+            }
+          }
           self.$previousTab = self.$activeTab.hide();
           self.$previousTabButton = self.$activeTabButton.removeClass("active").attr({
             "tab-index": -1,
@@ -108,9 +161,28 @@
             "aria-expanded": true
           });
           self.$activeTabButton = $(this);
-          return self.$activeTab = (_ref = $(this)[0].correspondingTabContent) != null ? _ref.show() : void 0;
+          self.$activeTab = (_ref = $(this)[0].correspondingTabContent) != null ? _ref.show() : void 0;
+          if (self.options.smoothScroll === true) {
+            $("html, body").animate({
+              scrollTop: self.$tabNav.offset().top
+            }, 1000);
+          }
+          if (self.options.keyboard === true) {
+            if ($(this)[0].href === ("#" + (self.options.initialTabId != null)) || $(this)[0].index === self.options.initialTabIndex) {
+              false;
+            }
+            window.location.hash = $(this)[0].href.split("#")[1];
+            return false;
+          }
         });
       };
+
+
+      /*
+      		Update the document's current URL to match that of the initially-configured and selected tab
+      
+      		@note Only fired once, when plugin initialized
+       */
 
       HashTabs.prototype.updateHash = function() {
         var currentHashURL;
@@ -118,21 +190,135 @@
         if (currentHashURL !== "") {
           return this.triggerTab(currentHashURL);
         } else {
-          return this.$tabButtons.first().trigger("click");
+          if (this.options.initialTabId != null) {
+            return this.triggerTab(this.options.initialTabId);
+          } else {
+            return this.triggerTabByIndex(this.options.initialTabIndex);
+          }
         }
       };
 
-      HashTabs.prototype.generateUniqueID = function() {
-        var c, m, today;
-        c = 1;
-        today = new Date();
-        m = today.getMilliseconds()("");
-        return ++today + m + (++c === 10000 ? c = 1 : c);
-      };
+
+      /*
+      		Trigger a given tab, provided its `id`
+      
+      		@param [String] url the hash or `id` of the corresponding tab and anchor
+      		@note A corresponding anchor (`<a>`) tag with the corresponding hash must be present in the tab navigation element
+      		@example trigger section element (tab) with id "chocolates" in tab container element ".myTabs"
+      			$(".myTabs").hashTabs("triggerTab", "chocolates") // triggers tab with id #chocolates
+       */
 
       HashTabs.prototype.triggerTab = function(url) {
         return this.$tabButtons.filter("[href*=" + url + "]").trigger("click");
       };
+
+
+      /*
+      		Trigger a given tab, provided its index
+      
+      		@param [Integer] non-negative integer, corresponding to the (nth + 1) tab to display
+      		@note A corresponding anchor (`<a>`) tag with the corresponding hash must be present in the tab navigation element
+      		@example trigger 3rd tab with in tab container ".myTabs"
+      			$(".myTabs").hashTabs("triggerTabByIndex", 3) // triggers tab with index 3
+       */
+
+      HashTabs.prototype.triggerTabByIndex = function(index) {
+        var condition;
+        condition = null;
+        if (this.options.debug === true) {
+          console.log("Triggering tab with index " + index);
+        }
+        switch (condition) {
+          case index < 0:
+            condition = "is a negative number, and you cannot trigger a tab with a negative index.  Please choose an index within";
+            break;
+          case index > this.tabsLength:
+            condition = "is larger than";
+            break;
+          default:
+            condition = "is either not a non-negative integer or is outside of";
+        }
+        if (index > this.tabsLength || index < 0 || !(/^\d+$/.test(index))) {
+          throw new Error("Cannot show tab of index " + index + ", as it " + condition + " the current amount of tabs (" + this.tabsLength + ").");
+        }
+        return this.$tabButtons.eq(index).trigger("click");
+      };
+
+
+      /*
+      		Listen to keypress events of the left and right arrow keys, to enable keyboard tab navigation
+      
+      		@note tabs will *cycle* in a clockwise direction**.  For example, if you are on the last tab to the right, selecting next will fold back over to the first tab (0) to the left
+       */
+
+      HashTabs.prototype.listenKeyboard = function() {
+        var self;
+        self = this;
+        return this.$tabButtons.on("keydown", function(event) {
+          if (self.options.debug === true) {
+            console.log("Pressed key " + event.keyCode);
+          }
+          switch (event.keyCode) {
+            case 37 || 38:
+              return self.selectPrevious();
+            case 39 || 40:
+              return self.selectNext();
+            default:
+              if (self.options.debug === true) {
+                return console.log("keypress of " + event.keyCode + " was false");
+              }
+          }
+        });
+      };
+
+
+      /*
+      		Select and trigger clicking of the left-most tab of the currently-active tab
+      
+      		@example trigger previous tab to current tab (0 is default)
+      			$(".myTabs").hashTabs("selectPrevious") // triggers left-most tab to current tab
+       */
+
+      HashTabs.prototype.selectPrevious = function() {
+        var previousTabIndex;
+        previousTabIndex = this.$activeTabButton[0].index - 1;
+        if (previousTabIndex === -1) {
+          return this.triggerTabByIndex(this.tabsLength - 1);
+        } else {
+          return this.triggerTabByIndex(previousTabIndex);
+        }
+      };
+
+
+      /*
+      		Select and trigger clicking of the right-most tab of the currently-active tab
+      
+      		@example trigger next tab to current tab (0 is default)
+      			$(".myTabs").hashTabs("selectNext") // triggers right-most tab to current tab
+       */
+
+      HashTabs.prototype.selectNext = function() {
+        var nextTabIndex;
+        if (this.options.debug === true) {
+          console.dir([this.$activeTabButton, this.$activeTabButton[0].index]);
+        }
+        nextTabIndex = this.$activeTabButton[0].index + 1;
+        if (nextTabIndex === this.tabsLength) {
+          return this.triggerTabByIndex(0);
+        } else {
+          return this.triggerTabByIndex(nextTabIndex);
+        }
+      };
+
+
+      /*
+      		Add and configure HashTabs to be within the jQuery namespace
+      
+      		@param [String] option Method name to trigger
+      		@overload args
+      			@param [Object] customized jQuery options to set in the new instance of HashTabs
+      		@see https://gist.github.com/rjz/3610858
+       */
 
       $.fn.extend({
         hashTabs: function() {

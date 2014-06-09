@@ -33,7 +33,7 @@
 	throws(block, [expected], [message])
 	###
 	"use strict"
-	module "jQuery#hash-tabs",
+	module "hashtabs",
 
 		# This will run before each test in this module.
 		setup: ->
@@ -102,5 +102,18 @@
 		equal($navButtons.is("[role*='tab']"), true)
 		equal($tabPanels.is("[role*='tabpanel']"), true)
 		equal($tabPanels.is("[aria-labeledby]"), true)
-
+	test "Navigates to previous and next tabs using arrow keys on keyboard", ->
+		expect 3
+		$tabs = @$tabContainer.first().hashTabs()
+		$secondTab = $tabs.find("nav a").eq(2).trigger("click")
+		$firstTab = $tabs.find("nav a").first()
+		$tabSections = $tabs.find("section")
+		equal($firstTab.hasClass("active"), true)
+		leftArrowKeyPress = $.Event("keydown")
+		leftArrowKeyPress.keyCode = 9
+		$(document).trigger(leftArrowKeyPress)
+		equal($tabSections.filter("#{$firstTab[0].href}").is(":visible"), true)
+		rightArrowKeyPress = leftArrowKeyPress
+		rightArrowKeyPress.keyCode = 10
+		equal($tabSections.filter("#{$secondTab[0].href}").is(":visible"), true)
 ) jQuery

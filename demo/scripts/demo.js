@@ -16,7 +16,9 @@
   jQuery(document).ready(function() {
     var $tabs;
     return $tabs = $(".tab-container").hashTabs({
-      debug: true
+      debug: true,
+      keyboard: true,
+      smoothScroll: true
     });
   });
 

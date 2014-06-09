@@ -13,5 +13,7 @@
 jQuery(document).ready ->
 	$tabs = $(".tab-container").hashTabs({
 		debug: on
+		keyboard: on
+		smoothScroll: on
 	})
 	# console.dir $tabs

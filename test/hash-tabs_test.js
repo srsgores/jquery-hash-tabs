@@ -36,7 +36,7 @@
     	throws(block, [expected], [message])
      */
     "use strict";
-    module("jQuery#hash-tabs", {
+    module("hashtabs", {
       setup: function() {
         this.elems = $("#qunit-fixture").children();
         return this.$tabContainer = $(".tab-container");
@@ -102,7 +102,7 @@
       $secondTab = $tabs.find("nav a").eq(2).trigger("click");
       return equal($firstTab.hasClass("active"), false);
     });
-    return test("Contains wai-aria accessibility tags", function() {
+    test("Contains wai-aria accessibility tags", function() {
       var $nav, $navButtons, $tabPanels, $tabs;
       expect(7);
       $tabs = this.$tabContainer.first().hashTabs();
@@ -117,6 +117,22 @@
       equal($navButtons.is("[role*='tab']"), true);
       equal($tabPanels.is("[role*='tabpanel']"), true);
       return equal($tabPanels.is("[aria-labeledby]"), true);
+    });
+    return test("Navigates to previous and next tabs using arrow keys on keyboard", function() {
+      var $firstTab, $secondTab, $tabSections, $tabs, leftArrowKeyPress, rightArrowKeyPress;
+      expect(3);
+      $tabs = this.$tabContainer.first().hashTabs();
+      $secondTab = $tabs.find("nav a").eq(2).trigger("click");
+      $firstTab = $tabs.find("nav a").first();
+      $tabSections = $tabs.find("section");
+      equal($firstTab.hasClass("active"), true);
+      leftArrowKeyPress = $.Event("keydown");
+      leftArrowKeyPress.keyCode = 9;
+      $(document).trigger(leftArrowKeyPress);
+      equal($tabSections.filter($firstTab[0].href).is(":visible"), true);
+      rightArrowKeyPress = leftArrowKeyPress;
+      rightArrowKeyPress.keyCode = 10;
+      return equal($tabSections.filter($secondTab[0].href).is(":visible"), true);
     });
   })(jQuery);
 

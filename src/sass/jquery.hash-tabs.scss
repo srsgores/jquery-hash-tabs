@@ -2,6 +2,7 @@
 @import "partials/variables";
 
 .hash-tabs {
+	@extend %inline;
 	nav {
 		border: 0;
 		background: transparent;
@@ -28,6 +29,7 @@
 				@extend %rounded-none;
 				@extend %margin-none;
 				margin-bottom: 0;
+				font-weight: $headingFontWeight;
 				font-size: 1.3em;
 				@media screen and (min-width: $breakpoint1080p) {
 					font-size: 1.4em;
@@ -52,8 +54,7 @@
 			}
 		}
 	}
-
-	section {
+	.tab-pane-container {
 		@extend %normal-padding;
 		@extend %normal-margin;
 		@extend %bordered;
@@ -63,9 +64,80 @@
 				@extend %margin-none;
 			}
 		}
-		// Animations
-		@if ($hashTabsIsAnimated == true) {
-			@extend %fadeInUp;
+		section {
+			// Animations
+			@if ($hashTabsIsAnimated == true) {
+				@extend %fadeInUp;
+			}
 		}
+	}
+}
+
+/* =============================================================================
+Demo
+========================================================================== */
+@import "companimation/preset/roll/rollIn";
+@import "companimation/preset/bounce/bounceIn";
+@import "companimation/preset/flip/flipInX";
+@import "companimation/preset/special/lightSpeedIn";
+@import "companimation/preset/rotate/rotateIn";
+@import "companimation/preset/filters/blurIn";
+
+.container {
+	margin: auto 20%;
+	width: auto;
+}
+
+pre {
+	font-family: monospace;
+	@extend %bordered;
+	background: $bodyBackground - 10;
+	@extend %textColour;
+	@extend %small-padding;
+}
+
+a, code, em {
+	@extend %mini-margin-left-right;
+}
+
+#fade-in {
+	.hash-tabs section {
+		@extend %fadeIn;
+	}
+}
+
+#bounce-in {
+	.hash-tabs section {
+		@extend %bounceIn;
+	}
+}
+
+#blur-in {
+	.hash-tabs section {
+		@extend %blurIn;
+	}
+}
+
+#flip-in {
+	.hash-tabs section {
+		@extend %flipInX;
+	}
+}
+
+#rotate-in {
+	.hash-tabs section {
+		@extend %rotateIn;
+	}
+}
+
+#roll-in {
+	.hash-tabs section {
+		@extend %rollIn;
+	}
+}
+
+#light-speed-in {
+	.hash-tabs section {
+		@extend %lightSpeedIn;
 	}
 }

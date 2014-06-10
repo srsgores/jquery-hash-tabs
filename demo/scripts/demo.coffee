@@ -3,16 +3,18 @@
 
 	demo.coffee
 
-	@author Sean
-	
+	@author Sean Goresht
+
 	@note Created on 2014-06-07 by PhpStorm
 	@note uses Codoc
 	@see https://github.com/coffeedoc/codo
 ###
 
 jQuery(document).ready ->
-	$tabs = $(".tab-container").hashTabs({
-		debug: on
-		keyboard: on
+	$example1 = $(".example1").hashTabs()
+	$example2 = $(".example2").hashTabs({
+		smoothScroll:
+			enabled: on
+			initialTabId: "smooth-scroller"
 	})
-	# console.dir $tabs
+	$animationExamples = $(".animated-tab").hashTabs()

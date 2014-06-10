@@ -13,6 +13,15 @@ mixin hashTabs(tabData)
 		each tab in tabData
 			+tabContentPane(tab.url, tab.title, tab.content)
 
+mixin hashTabsWithContainer(tabData)
+	article.tab-container
+		nav.tab-nav
+			each tab, index in tabData
+				+tabNavLink(tab.url, tab.title)
+		div.tab-pane-container
+			each tab in tabData
+				+tabContentPane(tab.url, tab.title, tab.content)
+
 mixin tabNavLink(url, title)
 	li
 		a(href = "\##{url}", title="#{title}") #{title}

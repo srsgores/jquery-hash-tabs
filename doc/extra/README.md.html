@@ -34,7 +34,8 @@
         </p>
       </nav>
       <div id='filecontents'>
-        <h1 id="hash-tabs">Hash Tabs</h1><p>URL-sensitive tab plugin for jQuery</p><h2 id="getting-started">Getting Started</h2><p>Download the <a href="https://raw.github.com/srsgores/jquery-hash-tabs/master/dist/jquery.hash-tabs.min.js">production version</a> or the <a href="https://raw.github.com/srsgores/jquery-hash-tabs/master/dist/jquery.hash-tabs.js">development version</a>.</p><p>In your web page:</p><pre><code class="lang-html">&lt;script src=&quot;/bower_components/jquery/dist/jquery.min.js&quot;&gt;&lt;/script&gt;
+        <h1 id="hash-tabs-build-status-https-secure-travis-ci-org-srsgores-jquery-hash-tabs-png-branch-master-https-travis-ci-org-srsgores-jquery-hash-tabs-">Hash Tabs <a href="https://travis-ci.org/srsgores/jquery-hash-tabs"><img src="https://secure.travis-ci.org/srsgores/jquery-hash-tabs.png?branch=master" alt="Build Status"></a></h1><p>URL-sensitive and hash-friendly tab plugin for jQuery</p><h2 id="getting-started">Getting Started</h2><p>Download the <a href="https://raw.github.com/srsgores/jquery-hash-tabs/master/dist/jquery.hash-tabs.min.js">production version</a> or the <a href="https://raw.github.com/srsgores/jquery-hash-tabs/master/dist/jquery.hash-tabs.js">development version</a>.</p><p>First, install the package using <a href="http://bower.io">bower</a>:</p><pre><code>bower install hash-tabs --save
+</code></pre><p>Then, in your web page:</p><pre><code class="lang-html">&lt;script src=&quot;/bower_components/jquery/dist/jquery.min.js&quot;&gt;&lt;/script&gt;
 &lt;script src=&quot;/bower_components/hash-tabs/dist/jquery.hash-tabs.min.js&quot;&gt;&lt;/script&gt;
 &lt;script&gt;
 jQuery(function($) {
@@ -42,7 +43,84 @@ jQuery(function($) {
 });
 &lt;/script&gt;
 </code></pre>
-<h2 id="documentation">Documentation</h2><p>Documentation is generated using <a href="https://github.com/coffeedoc/codo">codoc</a>.  <a href="">Please refer to the API docs</a>.</p><h2 id="api">API</h2>
+<h2 id="features">Features</h2>
+<ul>
+<li>Hash-friendly URLs, so your states are saved.  <strong>Try refreshing!</strong></li>
+<li>Compatible with IE8 and up</li>
+<li>Customizable and configurable.  Use custom selectors for your tabs.  Default uses <code>nav</code> and <code>section</code> elements</li>
+<li><code>noscript</code>-friendly.  Works very will in non-javascript browsers.  When tabs can&#39;t be loaded, content feels like normal, as hashes are supported natively by the browser.</li>
+<li>Customizable SASS styles, ready to go with my <a href="https://github.com/srsgores/sass-boilerplate">sass boilerplate</a></li>
+<li><strong>Bootstrap-free</strong>!  But you can still use bootstrap if you really want to</li>
+</ul>
+<h2 id="documentation">Documentation</h2><p>Documentation is generated using <a href="https://github.com/coffeedoc/codo">codoc</a>.  <a href="">Please refer to the API docs</a>.</p><h2 id="options">Options</h2>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>tabPanelSelector</code></td>
+<td><code>&quot;section&quot;</code></td>
+<td>jQuery selector for individual tab panes (or tab content)</td>
+</tr>
+<tr>
+<td><code>tabNavSelector</code></td>
+<td><code>&quot;nav&quot;</code></td>
+<td>jQuery selector for main navigation element, with tab buttons or links</td>
+</tr>
+<tr>
+<td><code>tabButtonSelector</code></td>
+<td><code>&quot;a&quot;</code></td>
+<td>jQuery selector for anchor tags or links contained within the main navigation element</td>
+</tr>
+<tr>
+<td><code>initialTabIndex</code></td>
+<td><code>0</code></td>
+<td>initial tab&#39;s index to show when the tabs are initialized</td>
+</tr>
+<tr>
+<td><code>initialTabId</code></td>
+<td><code>null</code></td>
+<td>initial tab&#39;s <code>id</code> or hash to show when tabs are initialized</td>
+</tr>
+<tr>
+<td><code>tabContainerClass</code></td>
+<td><code>&quot;hash-tabs&quot;</code></td>
+<td>class to append to initialized hash tabs</td>
+</tr>
+<tr>
+<td><code>keyboard</code></td>
+<td><code>true</code></td>
+<td>Enable keyboard navigation using arrow keys</td>
+</tr>
+<tr>
+<td><code>smoothScroll</code></td>
+<td><code>false</code></td>
+<td>Enable smooth scrolling to top of tabs when a tab is selected</td>
+</tr>
+<tr>
+<td><code>history</code></td>
+<td><code>true</code></td>
+<td>Enable HTML5 history api, to navigate backwards/forwards amongst selected tabs</td>
+</tr>
+<tr>
+<td><code>debug</code></td>
+<td><code>false</code></td>
+<td>Enable logging statements to diagnose any problems</td>
+</tr>
+</tbody>
+</table><p>Declare options in an object literal like so:</p><pre><code>jQuery(document).ready(function() {
+    var $tabs = $(&quot;.tab-container&quot;).hashTabs({
+        debug: true,
+        keyboard: true
+        // other options here
+    });
+});
+</code></pre><h2 id="api">API</h2>
 <h3 id="trigger-a-given-tab">Trigger A Given Tab</h3><p>(AKA trigger tab by <code>id</code>)</p><pre><code>$(&quot;.myTabs&quot;).hashTabs(&quot;triggerTab&quot;, &quot;chocolates&quot;) // triggers tab with id #chocolates
 </code></pre><h3 id="trigger-a-given-tab-by-index">Trigger A Given Tab by Index</h3>
 <pre><code>$(&quot;.myTabs&quot;).hashTabs(&quot;triggerTabByIndex&quot;, 1) // triggers second tab (with index 1) in tab set
@@ -56,7 +134,7 @@ jQuery(function($) {
       </div>
     </div>
     <div id='footer'>
-  June 09, 14 16:59:11 by
+  June 09, 14 21:10:25 by
   <a href='https://github.com/coffeedoc/codo' title='CoffeeScript API documentation generator'>
     Codo
   </a>

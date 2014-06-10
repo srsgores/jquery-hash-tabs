@@ -18,12 +18,13 @@ block head
 		block header-styles
 			link(rel = "stylesheet", href = "../src/css/jquery.hash-tabs.css")
 body
-	header(role="banner")
-		block header
-	main(role = "main")
-		block content
-	block footer
-		footer(role = "contentinfo")
+	.container
+		header(role="banner")
+			block header
+		main(role = "main")
+			block content
+		block footer
+			footer(role = "contentinfo")
 	block scripts
 		script(src = "../bower_components/jquery/dist/jquery.min.js")
 		script(src = "../src/jquery.hash-tabs.js")

@@ -5,8 +5,8 @@
 
 	demo.coffee
 
-	@author Sean
-	
+	@author Sean Goresht
+
 	@note Created on 2014-06-07 by PhpStorm
 	@note uses Codoc
 	@see https://github.com/coffeedoc/codo
@@ -14,11 +14,15 @@
 
 (function() {
   jQuery(document).ready(function() {
-    var $tabs;
-    return $tabs = $(".tab-container").hashTabs({
-      debug: true,
-      keyboard: true
+    var $animationExamples, $example1, $example2;
+    $example1 = $(".example1").hashTabs();
+    $example2 = $(".example2").hashTabs({
+      smoothScroll: {
+        enabled: true,
+        initialTabId: "smooth-scroller"
+      }
     });
+    return $animationExamples = $(".animated-tab").hashTabs();
   });
 
 }).call(this);

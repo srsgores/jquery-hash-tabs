@@ -28,11 +28,164 @@ block content
 		section#simple-example
 			h1 Simple
 			div.example
-				- tabs = []
-				- for (var i = 0; i < 4; i++) {
-					- tabs.push({title: "Tab " + i, url: "tab" + i, content: "This is content for tab " + i})
-				- }
-				+hashTabs(tabs)
+				div.example1
+					- tabs = []
+					- for (var i = 0; i < 4; i++) {
+						- tabs.push({title: "Tab " + (i + 1), url: "tab" + (i + 1), content: "This is content for tab " + (i + 1)})
+					- }
+					+hashTabsWithContainer(tabs)
+			div.code
+				pre
+					code.
+						$example1 = $(".example1").hashTabs()
+		section#smooth-scrolling-example
+			h1 Smooth Scrolling
+			p Allow
+				em smooth scrolling
+				| on the tabs.  This is great for when you want to programmatically select a tab, and then show this to the user.
+			div.example
+				div.example2
+					- tabs2 = [{title: "Smooth", url: "tab1", content: "It's smooth time.  Check out how smooth scrolling makes the experience nicer."}, {title: "Cream Cheese", url: "tab2", content: "Bagels are awesome.  But in other countries outside North America, the concept of the 'bagel' is not very well-known."}, {title: "Milk", url: "tab3", content: "Milk may taste good.  But recent studies are finding that consuming more than 1 cup a day may cause serious risk for heart disease."}]
+					+hashTabsWithContainer(tabs2)
+				div.code
+					pre
+						code.
+							$example2 = $(".example2").hashTabs({
+								smoothScroll:
+									enabled: on
+							})
+		section#animation-examples
+			h1 Animation Examples
+			p Animations can be easily customized using
+				a(href = "http://mikefowler.me/companimation/", target = "companimation", title = "companimation") companimation framework
+				|.  Using the
+				code @extend
+				| directive, you can easily change the way your tabs appear:
+			ul
+				li
+					| bounce
+					ul
+						li bounce
+						li bounceIn
+						li bounceInDown
+						li bounceInLeft
+						li bounceInRight
+						li bounceInUp
+						li bounceOut
+						li bounceOutDown
+						li bounceOutLeft
+						li bounceOutRight
+						li bounceOutUp
+					li
+						| fade
+						ul
+							li fadeIn
+							li fadeInDown
+							li fadeInDownBig
+							li fadeInLeft
+							li fadeInLeftBig
+							li fadeInRight
+							li fadeInRightBig
+							li fadeInUp
+							li fadeInUpBig
+							li fadeOut
+							li fadeOutDown
+							li fadeOutDownBig
+							li fadeOutLeft
+							li fadeOutLeftBig
+							li fadeOutRight
+							li fadeOutRightBig
+							li fadeOutUp
+							li fadeOutUpBig
+					li
+						| filters (
+						span(style="color: red; font-weight: bold;") experimental
+						| )
+						ul
+							li blurIn
+							li blurInDown
+							li blurInLeft
+							li blurInRight
+							li blurInUp
+							li blurOut
+							li blurOutDown
+							li blurOutLeft
+							li blurOutRight
+							li blurOutUp
+							li greyscaleIn
+							li greyscaleOut
+					li
+						| flip
+						ul
+							li flip
+							li flipInX
+							li flipInY
+							li flipOutX
+							li flipOutY
+					li
+						| roll
+						ul
+							li rollIn
+							li rollOut
+					li
+						| rotate
+						ul
+							li rotateIn
+							li rotateInDownLeft
+							li rotateInDownRight
+							li rotateInUpLeft
+							li rotateInUpRight
+							li rotateOut
+							li rotateOutDownLeft
+							li rotateOutDownRight
+							li rotateOutUpLeft
+							li rotateOutUpRight
+					li
+						| special
+						ul
+							li flash
+							li hinge
+							li lightSpeedIn
+							li lightSpeedOut
+							li pulse
+							li shake
+							li swing
+							li tada
+							li wiggle
+							li wobble
+			section#fade-in
+				h1 Fade In
+				div.animated-tab
+					+hashTabsWithContainer(tabs)
+			section#fade-in-up
+				h1 Fade In Up
+				div.animated-tab
+					+hashTabsWithContainer(tabs)
+			section#rotate-in
+				h1 Rotate in
+				div.animated-tab
+					+hashTabsWithContainer(tabs)
+			section#bounce-in
+				h1 Bounce In
+				div.animated-tab
+					+hashTabsWithContainer(tabs)
+			section#flip-in
+				h1 Flip In
+				div.animated-tab
+					+hashTabsWithContainer(tabs)
+			section#roll-in
+				h1 Roll In
+				div.animated-tab
+					+hashTabsWithContainer(tabs)
+			section#blur-in
+				h1 Blur In
+				div.animated-tab
+					+hashTabsWithContainer(tabs)
+			section#light-speed-in
+				h1 Light Speed In
+				div.animated-tab
+					+hashTabsWithContainer(tabs)
+
 	section#quick-start
 		h1 Quick Start
 		p
@@ -43,13 +196,7 @@ block content
 			| .
 		p In your web page:
 		pre.
-			<script src="/bower_components/jquery/dist/jquery.min.js"></script>
-			<script src="/bower_components/hash-tabs/dist/jquery.hash-tabs.min.js"></script>
-			<script>
-			jQuery(function($) {
-				$(".myTabContainer").hashTabs(); // "create hash tabs off of all elements with class myTabContainer"
-			});
-			</script>
+			&lt;script src=&quot;/bower_components/jquery/dist/jquery.min.js&quot;&gt;&lt;/script&gt;<br/>&lt;script src=&quot;/bower_components/hash-tabs/dist/jquery.hash-tabs.min.js&quot;&gt;&lt;/script&gt;<br/>&lt;script&gt;<br/>jQuery(function($) {<br/>	$(&quot;.myTabContainer&quot;).hashTabs(); // &quot;create hash tabs off of all elements with class myTabContainer&quot;<br/>});<br/>&lt;/script&gt;
 
 	h2#documentation Documentation
 	p

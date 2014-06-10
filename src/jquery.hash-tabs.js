@@ -61,7 +61,7 @@
         			@note Enabling smooth scrolling will override the default browser behaviour, in which the browser "jumps" to the top of an anchor
          */
         smoothScroll: {
-          enabled: true,
+          enabled: false,
           offset: 100,
           duration: 1000
         },
@@ -89,7 +89,7 @@
           throw new ReferenceError("The selector passed in does not contain any items");
         }
         this.generateTabs(this.$selector);
-        if (options.debug === true) {
+        if (this.options.debug === true) {
           console.dir(this.$selector);
         }
       }
@@ -154,7 +154,7 @@
       HashTabs.prototype.listenClick = function($tabButtons) {
         var self;
         self = this;
-        return $tabButtons.on("click", function() {
+        return $tabButtons.on("click", function(e) {
           var targetHref, _ref;
           if (self.options.debug === true) {
             console.log("Active tab is ");

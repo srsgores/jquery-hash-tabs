@@ -53,7 +53,7 @@
 			@note Enabling smooth scrolling will override the default browser behaviour, in which the browser "jumps" to the top of an anchor
 			###
 			smoothScroll:
-				enabled: on
+				enabled: off
 			# @property offset amount, in pixels from top of main tab navigation, when smooth scrolling is enabled
 				offset: 100
 				duration: 1000
@@ -76,7 +76,7 @@
 			@$selector = $(el)
 			throw new ReferenceError("The selector passed in does not contain any items") if @$selector.length < 1
 			@generateTabs(@$selector)
-			console.dir @$selector if options.debug is on
+			console.dir @$selector if @options.debug is on
 
 		###
 		Generate tabs based off of a selector
@@ -134,7 +134,7 @@
 		###
 		listenClick: ($tabButtons) ->
 			self = this
-			$tabButtons.on("click", ->
+			$tabButtons.on("click", (e) ->
 				if self.options.debug is on
 					console.log "Active tab is "
 					console.dir(self.$activeTab) if self.options.debug is on

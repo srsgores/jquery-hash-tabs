@@ -1,0 +1,43 @@
+{
+  "name": "sassboilerplate",
+  "main": "sass/style.scss",
+  "dependencies": {
+    "jquery": "~*",
+    "css3pie": "*",
+    "box-sizing-polyfill": "*",
+    "html5shiv": "*"
+  },
+  "ignore": [
+    "**/.*",
+    ".idea",
+    ".sass-cache",
+    "scripts",
+    ".bowerrc",
+    ".htaccess",
+    "apple-touch-icon-precomposed.png",
+    "browserconfig.xml",
+    "**/*.html",
+    "favicon.ico",
+    "humans.txt",
+    "robots.txt",
+    "tile.png",
+    "crossdomain.xml",
+    "demo.scss",
+    "sass/partials/icomoon/IcoMoon Session.json",
+    "demo.css",
+    "tile-wide.png",
+    "node_modules",
+    "bower_components"
+  ],
+  "homepage": "https://github.com/srsgores/sass-boilerplate",
+  "_release": "2b78ff7e59",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "2b78ff7e593fdf47a7a2cf3f7b91c8f0703f7e1a"
+  },
+  "_source": "git://github.com/srsgores/sass-boilerplate.git",
+  "_target": "*",
+  "_originalSource": "sassboilerplate",
+  "_direct": true
+}

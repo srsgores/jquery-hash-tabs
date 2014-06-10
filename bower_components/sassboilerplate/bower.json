@@ -1,0 +1,33 @@
+{
+	"name":         "sassboilerplate",
+	"version":      "1.6.2",
+	"main":         "sass/style.scss",
+	"dependencies": {
+		"jquery":              "~*",
+		"css3pie":             "*",
+		"box-sizing-polyfill": "*",
+		"html5shiv":           "*"
+	},
+	"ignore":       [
+		"**/.*",
+		".idea",
+		".sass-cache",
+		"scripts",
+		".bowerrc",
+		".htaccess",
+		"apple-touch-icon-precomposed.png",
+		"browserconfig.xml",
+		"**/*.html",
+		"favicon.ico",
+		"humans.txt",
+		"robots.txt",
+		"tile.png",
+		"crossdomain.xml",
+		"demo.scss",
+		"sass/partials/icomoon/IcoMoon Session.json",
+		"demo.css",
+		"tile-wide.png",
+		"node_modules",
+		"bower_components"
+	]
+}

@@ -4,11 +4,11 @@ require "companimation"
 
 # Set this to the root of your project when deployed:
 http_path = "/"
-css_dir = "css"
-sass_dir = "sass"
-images_dir = "img"
-javascripts_dir = "scripts"
-fonts_dir = "fonts"
+css_dir = "src/css"
+sass_dir = "src/sass"
+images_dir = "src/img"
+javascripts_dir = "src"
+fonts_dir = "src/fonts"
 
 output_style = :compressed
 environment = :development

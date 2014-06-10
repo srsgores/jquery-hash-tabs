@@ -1,0 +1,103 @@
+@import "compass/css3/pie";
+@import "compass/css3";
+
+/* =============================================================================
+CSS3 PIE
+========================================================================== */
+$pie-enabled: false !default;
+$pie-behavior: url("/bower_components/css3pie/PIE.htc");
+$pie-base-class: pie-element;
+
+$multiplier: 1.3 !default;
+$multiplierLarge: $multiplier * 2.1 !default;
+$multiplierSmall: $multiplier / $multiplierLarge !default;
+
+$multiplierLargePercentage: $multiplierLarge * 10%;
+
+/* =============================================================================
+Sizes and Spacing
+========================================================================== */
+
+/* Padding */
+$padding: 1em !default;
+$paddingLarge: $padding * $multiplier;
+$paddingSmall: $padding / $multiplier;
+$paddingMini: $padding / $multiplierLarge;
+
+/* Margin */
+$margin: 1em !default;
+$marginSmall: $margin / $multiplier;
+$marginLarge: $margin * $multiplierLarge;
+$marginMini: $marginSmall / $multiplierLarge;
+
+/* =============================================================================
+Grid
+========================================================================== */
+$num-cols: 12 !default;
+$rowWidth: 100% !default;
+$container-lateral-padding: $padding !default;
+$col-margin-right: 3.8% !default;
+$col-unit: (($rowWidth + $col-margin-right) / $num-cols) !default;
+
+$rowNotation: row !default;
+$columnNotation: col !default;
+
+$container-width: $rowWidth;
+$total-columns: $num-cols;
+$column-width: 4% !default;
+$gutter-width: 2% !default;
+$grid-padding: 0% !default; //rows should take up the whole screen
+$from-direction: left;
+
+$container-style: fluid;
+
+/* =============================================================================
+Type
+========================================================================== */
+$fontURL: "http://fonts.googleapis.com/css?family=Open+Sans:400,300"; //google font url.  Imported at _type.scss
+$em: 1em !default;
+$baseFontSize: 100% !default;
+$baseFontFamily: "Open Sans", "sans-serif", "arial" !default;
+$fontSizeSmall: ($baseFontSize / $multiplierSmall) !default;
+$fontSizeMedium: ($baseFontSize * $multiplier) !default;
+$fontSizeLarge: ($baseFontSize * $multiplierLarge) !default;
+$fontSizeMini: ($baseFontSize / $multiplierLarge) !default;
+$lineHeight: 1.4 !default;
+
+$headingFontWeight: 300 !default;
+$baseFontWeight: 500 !default;
+
+$borderRadius: ($margin / $multiplierLarge) !default;
+$borderRadiusSmall: ($borderRadius / $multiplier) !default;
+$borderRadiusLarge: ($borderRadius * $multiplierLarge) !default;
+
+/* Transitions*/
+$transitionTime: 0.5s !default; //global transition time
+$transitionFunction: ease !default; //transition function for CSS3 transitions
+/* =============================================================================
+Colours
+========================================================================== */
+$textColour: #000 !default;
+$inverseTextColour: invert($textColour) !default;
+$primaryColour: lighten($textColour, 45) !default; // colour of text and main colour overall
+$secondaryColour: lighten($textColour, 55) !default; // colour of any components, backgrounds, etc.
+$tertiaryColour: lighten($textColour, 96) !default; //special colour to complement secondary colour
+//background colour.  Should be the opposite of primary colour for good results
+$bodyBackground: $inverseTextColour !default;
+
+/* Links */
+$linkColour: contrast-color($textColour, lighten($textColour, 30), darken($textColour, 30), 40%);
+
+/* =============================================================================
+Borders
+========================================================================== */
+$borderWidth: 1px !default;
+$borderStyle: solid !default;
+$borderColour: fade-out(lighten($textColour, 80%), 0.5) !default;
+$border: $borderWidth $borderStyle $borderColour;
+
+/* =============================================================================
+Media query variables
+========================================================================== */
+$breakpointMain: 767px;
+$breakpoint1080p: 1920px;

@@ -1,0 +1,141 @@
+/* --- main content ------------------------------------------------------------------------------------------------- */
+@import "variables.scss";
+@import "compass/css3";
+
+/* --- print (optional) --------------------------------------------------------------------------------------------- */
+
+@media print {
+	body {
+		background: transparent !important;
+		color: black !important;
+		@include text-shadow(none);
+		@include filter(none);
+	}
+/* Black prints faster: sanbeiji.com/archives/953 */
+	a, a:visited {
+		color: $textColour !important;
+		text-decoration: underline;
+	}
+	a[href]:after {
+		content: " (" attr(href) ")";
+	}
+	abbr[title]:after {
+		content: " (" attr(title) ")";
+	}
+	.ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after {
+		content: "";
+	}
+/* Don't show links for images, or javascript/internal links */
+	pre, blockquote {
+		border: $borderWidth $borderStyle $borderColour;
+		page-break-inside: avoid;
+	}
+	thead {
+		display: table-header-group;
+	}
+/* css-discuss.incutio.com/wiki/Printing_Tables */
+	tr, img {
+		page-break-inside: avoid;
+	}
+	img {
+		max-width: 100% !important;
+	}
+	@page {
+		margin: 0.5cm;
+	}
+	p, h2, h3 {
+		orphans: 3;
+		widows: 3;
+	}
+
+	h2, h3 {
+		page-break-after: avoid;
+	}
+}
+
+/* =============================================================================
+Mobile main media query
+========================================================================== */
+
+@media screen and (max-width: $breakpointMain) {
+	/* Ensure no increased font sizes */
+	body {
+		font-size: $baseFontSize;
+		@include text-size-adjust(none);
+	}
+	/* Responsive grids */
+	%#{$rowNotation}, body, .container, button, textarea, input, img, nav ul li {
+		width: 100%;
+		min-width: 0;
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.container {
+		padding: 0 $padding; //allow padding to the side of the container
+		@for $i from 1 through $num-cols {
+			%#{$rowNotation} {
+				%#{col-name($i)}, %#{col-name($i)}:last-child {
+					width: auto;
+					float: none;
+					position: static !important;
+					margin-left: 0;
+					margin-right: 0;
+				}
+			}
+		}
+	}
+	%hidden-phone {
+		display: none;
+	}
+	.container %show-phone, button {
+		display: block;
+	}
+	button {
+		text-align: center;
+	}
+	/* Responsive buttons - vertically-stacked */
+	.form-actions {
+		button {
+			margin: -#{$marginMini} 0 0 0; //buttons don't show double borders
+		}
+	}
+
+	/* Responsive navigation */
+	nav {
+		border: $borderWidth $borderStyle $borderColour;
+	}
+	nav ul {
+		li {
+			a {
+				display: block;
+				border-right: none;
+				border-left: none;
+				border-bottom: $borderWidth $borderStyle $borderColour;
+				margin: 0;
+			}
+			ul, ul ul {
+				@include opacity(1);
+				visibility: visible;
+				display: block;
+				position: static;
+				margin: 0;
+				border: 0;
+				font-size: 85%;
+				a {
+					text-indent: 3%;
+				}
+			}
+		}
+	}
+	/*Responsive grid button*/
+	.responsive-grid {
+		& + input[type="checkbox"]:checked + nav {
+			@include visuallyhidden;
+		}
+	}
+
+	//forms at full screen width
+	input:not([type]), input[type="color"], input[type="email"], input[type="number"], input[type="password"], input[type="tel"], input[type="url"], input[type="text"], textarea {
+		width: $rowWidth;
+	}
+}

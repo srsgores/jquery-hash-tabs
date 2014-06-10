@@ -1,0 +1,22 @@
+{
+  "name": "hash-tabs",
+  "dependencies": {
+    "sassboilerplate": "*",
+    "history.js": "~1.8.0"
+  },
+  "devDependencies": {
+    "qunit": "~1.12.0",
+    "jquery": "~*"
+  },
+  "homepage": "https://github.com/srsgores/jquery-hash-tabs",
+  "_release": "fd20dfe6c3",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "fd20dfe6c30386b2ce90fe6246ffe8d2f527abf3"
+  },
+  "_source": "git://github.com/srsgores/jquery-hash-tabs.git",
+  "_target": "*",
+  "_originalSource": "hash-tabs",
+  "_direct": true
+}

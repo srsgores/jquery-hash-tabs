@@ -1,0 +1,47 @@
+//
+	hash-tabs
+	File Name: mixins
+	Author: Sean
+	Date: 2014-06-07
+	Description: mixins for jQuery hash-tabs plugin
+
+mixin hashTabs(tabData)
+	article.tab-container
+		nav.tab-nav
+			each tab, index in tabData
+				+tabNavLink(tab.url, tab.title)
+		each tab in tabData
+			+tabContentPane(tab.url, tab.title, tab.content)
+
+mixin hashTabsWithContainer(tabData)
+	article.tab-container
+		nav.tab-nav
+			each tab, index in tabData
+				+tabNavLink(tab.url, tab.title)
+		div.tab-pane-container
+			each tab in tabData
+				+tabContentPane(tab.url, tab.title, tab.content)
+
+mixin hashTabsWithIcon(tabData)
+	article.tab-container
+		nav.tab-nav
+			each tab, index in tabData
+				+tabNavLinkWithIcon(tab.url, tab.title, tab.icon)
+		div.tab-pane-container
+			each tab in tabData
+				+tabContentPane(tab.url, tab.title, tab.content, tab.icon)
+
+mixin tabNavLink(url, title)
+	li
+		a(href = "\##{url}", title="#{title}") #{title}
+
+mixin tabNavLinkWithIcon(url, title, icon)
+	li
+		a(href = "\##{url}", title="#{title}") #{title}
+			i(class = "icon-#{icon}")
+
+mixin tabContentPane(url, title, content)
+	section(id="#{url}")
+		header
+			h1 #{title}
+		p #{content}

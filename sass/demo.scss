@@ -1,0 +1,122 @@
+@import "../bower_components/sassboilerplate/sass/style";
+@import "../bower_components/hash-tabs/src/sass/jquery.hash-tabs";
+
+/* =============================================================================
+Demo
+========================================================================== */
+@import "companimation/preset/roll/rollIn";
+@import "companimation/preset/bounce/bounceIn";
+@import "companimation/preset/flip/flipInX";
+@import "companimation/preset/special/lightSpeedIn";
+@import "companimation/preset/rotate/rotateIn";
+@import "companimation/preset/filters/blurIn";
+
+.container {
+	margin: auto 20%;
+	@extend %transition-all;
+	width: auto;
+	@media screen and (max-width: $breakpointMain) {
+		margin: 0 $margin;
+	}
+}
+
+header[role="banner"] {
+	@extend %centred;
+	font-size: 1.5rem;
+	margin: 25% 0;
+	h1 {
+		margin-bottom: 5rem;
+	}
+	p {
+		margin-bottom: 15%;
+	}
+	@extend %fadeInUp;
+}
+
+main {
+	@extend %fadeIn;
+	@extend %delayed-1;
+}
+.hash-tabs {
+	nav {
+		#{$icons} {
+			@extend %mini-margin-left;
+		}
+	}
+}
+
+.share-options {
+	@extend %no-list-style;
+	@extend %padding-none;
+	@extend %margin-none;
+	li {
+		@extend %inline;
+	}
+}
+
+.docs-link {
+	@extend button;
+	margin: 0 $marginSmall;
+	@extend %rounded;
+	margin-bottom: 5rem;
+	font-size: 1.4rem;
+	@extend %bounceIn;
+	@extend %delayed-2;
+	i {
+		@extend %mini-margin-left;
+	}
+}
+
+pre {
+	font-family: monospace;
+	@extend %bordered;
+	background: $bodyBackground - 10;
+	@extend %textColour;
+	@extend %small-padding;
+}
+
+a, code, em {
+	@extend %mini-margin-left-right;
+}
+
+#fade-in {
+	.hash-tabs section {
+		@extend %fadeIn;
+	}
+}
+
+#bounce-in {
+	.hash-tabs section {
+		@extend %bounceIn;
+	}
+}
+
+#blur-in {
+	.hash-tabs section {
+		@extend %blurIn;
+	}
+}
+
+#flip-in {
+	.hash-tabs section {
+		@extend %flipInX;
+	}
+}
+
+#rotate-in {
+	.hash-tabs section {
+		@extend %rotateIn;
+	}
+}
+
+#roll-in {
+	.hash-tabs section {
+		@extend %rollIn;
+	}
+}
+
+#light-speed-in {
+	.hash-tabs section {
+		@extend %lightSpeedIn;
+	}
+}

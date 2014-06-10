@@ -1,0 +1,24 @@
+{
+  "name": "css3pie",
+  "version": "0.0.0",
+  "homepage": "https://github.com/PepijnSenders/css3pie",
+  "authors": [
+    "Pepijn Senders <pepijn@bekokstooft.nl>"
+  ],
+  "description": "Bower package for css3pie http://css3pie.com/",
+  "keywords": [
+    "pie",
+    "css3",
+    "PIE",
+    "css",
+    "css3pie"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

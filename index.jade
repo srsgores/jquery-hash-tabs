@@ -1,0 +1,292 @@
+//
+	hash-tabs
+	File Name: demo
+	Author: Sean
+	Date: 2014-06-07
+	Description: Hash tabs demo file
+
+include mixins
+
+extends layout
+
+block header
+	h1 Hash Tabs
+	p The ultimate jQuery tab plugin for
+		em hash-sensitive
+		| ,
+		em WAI-ARIA-compliant
+		| tabs
+	a.docs-link(href="doc", title="View API and Documentation") View Documentation
+		i.icon-book
+	ul.share-options
+		li
+			iframe(src="http://ghbtns.com/github-btn.html?user=srsgores&repo=jquery-hash-tabs&type=watch&count=true", allowtransparency="true", frameborder="0", scrolling="0", width="62", height="20")
+		li
+			iframe(src="http://ghbtns.com/github-btn.html?user=srsgores&repo=jquery-hash-tabs&type=fork&count=true", allowtransparency="true", frameborder="0", scrolling="0", width="95", height="20")
+		li
+			a.twitter-share-button(href="https://twitter.com/share", data-url="http://srsgores.github.io/jquery-hash-tabs", data-via="@SGoresht", data-lang="en") Tweet
+			script.
+				!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+			li
+				a.twitter-follow-button(href="https://twitter.com/SGoresht", title = "Follow Sean Goresht") Follow
+					em @SGoresht
+					i.icon-twitter
+			li
+				.g-plusone(data-annotation="inline", data-width="300", data-href="http://srsgores.github.io/jquery-hash-tabs")
+				script.
+					(function() {
+						var po = document.createElement("script"); po.type = "text/javascript"; po.async = true;
+						po.src = "https://apis.google.com/js/platform.js";
+						var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s);
+						})();
+
+
+block content
+	section#examples
+		h1 Examples
+		section#simple-example
+			h1 Simple
+			div.example
+				div.example1
+					- tabs = []
+					- for (var i = 0; i < 4; i++) {
+						- tabs.push({title: "Tab " + (i + 1), url: "tab" + (i + 1), content: "This is content for tab " + (i + 1)})
+					- }
+					+hashTabsWithContainer(tabs)
+			div.code
+				pre
+					code.
+						$example1 = $(".example1").hashTabs()
+		section#smooth-scrolling-example
+			h1 Smooth Scrolling
+			p Allow
+				em smooth scrolling
+				| on the tabs.  This is great for when you want to programmatically select a tab, and then show this to the user.
+			div.example
+				div.example2
+					- tabs2 = [{title: "Smooth", url: "tab1", content: "It's smooth time.  Check out how smooth scrolling makes the experience nicer."}, {title: "Cream Cheese", url: "tab2", content: "Bagels are awesome.  But in other countries outside North America, the concept of the 'bagel' is not very well-known."}, {title: "Milk", url: "tab3", content: "Milk may taste good.  But recent studies are finding that consuming more than 1 cup a day may cause serious risk for heart disease."}]
+					+hashTabsWithContainer(tabs2)
+				div.code
+					pre
+						code.
+							$example2 = $(".example2").hashTabs({
+								smoothScroll:
+									enabled: on
+							})
+		section#animation-examples
+			h1 Animation Examples
+			p Animations can be easily customized using
+				a(href = "http://mikefowler.me/companimation/", target = "companimation", title = "companimation") companimation framework
+				|.  Using the
+				code @extend
+				| directive, you can easily change the way your tabs appear:
+			ul
+				li
+					| bounce
+					ul
+						li bounce
+						li bounceIn
+						li bounceInDown
+						li bounceInLeft
+						li bounceInRight
+						li bounceInUp
+						li bounceOut
+						li bounceOutDown
+						li bounceOutLeft
+						li bounceOutRight
+						li bounceOutUp
+					li
+						| fade
+						ul
+							li fadeIn
+							li fadeInDown
+							li fadeInDownBig
+							li fadeInLeft
+							li fadeInLeftBig
+							li fadeInRight
+							li fadeInRightBig
+							li fadeInUp
+							li fadeInUpBig
+							li fadeOut
+							li fadeOutDown
+							li fadeOutDownBig
+							li fadeOutLeft
+							li fadeOutLeftBig
+							li fadeOutRight
+							li fadeOutRightBig
+							li fadeOutUp
+							li fadeOutUpBig
+					li
+						| filters (
+						span(style="color: red; font-weight: bold;") experimental
+						| )
+						ul
+							li blurIn
+							li blurInDown
+							li blurInLeft
+							li blurInRight
+							li blurInUp
+							li blurOut
+							li blurOutDown
+							li blurOutLeft
+							li blurOutRight
+							li blurOutUp
+							li greyscaleIn
+							li greyscaleOut
+					li
+						| flip
+						ul
+							li flip
+							li flipInX
+							li flipInY
+							li flipOutX
+							li flipOutY
+					li
+						| roll
+						ul
+							li rollIn
+							li rollOut
+					li
+						| rotate
+						ul
+							li rotateIn
+							li rotateInDownLeft
+							li rotateInDownRight
+							li rotateInUpLeft
+							li rotateInUpRight
+							li rotateOut
+							li rotateOutDownLeft
+							li rotateOutDownRight
+							li rotateOutUpLeft
+							li rotateOutUpRight
+					li
+						| special
+						ul
+							li flash
+							li hinge
+							li lightSpeedIn
+							li lightSpeedOut
+							li pulse
+							li shake
+							li swing
+							li tada
+							li wiggle
+							li wobble
+			section#fade-in
+				h1 Fade In
+				div.animated-tab
+					+hashTabsWithContainer(tabs)
+			section#fade-in-up
+				h1 Fade In Up
+				div.animated-tab
+					+hashTabsWithContainer(tabs)
+			section#rotate-in
+				h1 Rotate in
+				div.animated-tab
+					+hashTabsWithContainer(tabs)
+			section#bounce-in
+				h1 Bounce In
+				div.animated-tab
+					+hashTabsWithContainer(tabs)
+			section#flip-in
+				h1 Flip In
+				div.animated-tab
+					+hashTabsWithContainer(tabs)
+			section#roll-in
+				h1 Roll In
+				div.animated-tab
+					+hashTabsWithContainer(tabs)
+			section#blur-in
+				h1 Blur In
+				div.animated-tab
+					+hashTabsWithContainer(tabs)
+			section#light-speed-in
+				h1 Light Speed In
+				div.animated-tab
+					+hashTabsWithContainer(tabs)
+	section#icons
+		h1 Icons
+		p Because
+			em hash-tabs
+			| uses my sass boilerplate, you get a wealth of
+			a(href = "http://icomoon.app", target = "_icomoon") vector icomoon icons
+			|.  Check them out:
+		- tabs3 = [{title: "Profile", url: "tab1", content: "You could put a profile form here.", icon: "profile"}, {title: "Contact Information", url: "tab2", content: "Please update your contact information.", icon: "address-book"}, {title: "Settings", url: "tab3", content: "Your settings have been modified.  Please update them.", icon: "settings"}]
+			.example1
+				+hashTabsWithIcon(tabs3)
+
+
+	section#quick-start
+		h1 Quick Start
+		p
+			| Download the
+			a(href="https://raw.github.com/srsgores/jquery-hash-tabs/master/dist/jquery.hash-tabs.min.js") production version
+			| or the
+			a(href="https://raw.github.com/srsgores/jquery-hash-tabs/master/dist/jquery.hash-tabs.js") development version
+			| .
+		p In your web page:
+		pre.
+			&lt;script src=&quot;/bower_components/jquery/dist/jquery.min.js&quot;&gt;&lt;/script&gt;<br/>&lt;script src=&quot;/bower_components/hash-tabs/dist/jquery.hash-tabs.min.js&quot;&gt;&lt;/script&gt;<br/>&lt;script&gt;<br/>jQuery(function($) {<br/>	$(&quot;.myTabContainer&quot;).hashTabs(); // &quot;create hash tabs off of all elements with class myTabContainer&quot;<br/>});<br/>&lt;/script&gt;
+
+	h2#documentation Documentation
+	p
+		| Documentation is generated using
+		a(href="https://github.com/coffeedoc/codo") codoc
+		| .
+		a(href="") Please refer to the API docs
+		| .
+	h2#api API
+	h3#trigger-a-given-tab Trigger A Given Tab
+	p
+		| (AKA trigger tab by
+		code id
+		| )
+	pre.
+		$(".myTabs").hashTabs("triggerTab", "chocolates") // triggers tab with id #chocolates
+	h3#trigger-a-given-tab-by-index Trigger A Given Tab by Index
+	pre.
+		$(".myTabs").hashTabs("triggerTabByIndex", 1) // triggers second tab (with index 1) in tab set
+	h3#trigger-next-tab-to-right Trigger Next Tab (to Right)
+	pre.
+		$(".myTabs").hashTabs("selectNext") // triggers right-most tab to current tab
+	h3#trigger-previous-tab-to-left Trigger Previous Tab (to Left)
+	pre.
+		$(".myTabs").hashTabs("selectPrevious") // triggers left-most tab to current tab
+	p
+		strong
+			| NOTE: tabs will
+			em cycle
+			| in a clockwise direction
+		| .  For example, if you are on the last tab to the right, selecting next will fold back over to the first tab (0) to the left
+	h2#contributing Contributing
+	p
+		| First, make sure to install all
+		a(href="http://bower.io") bower
+		| dependencies:
+	pre.
+		bower install
+
+	p Next, install node dependencies:
+	pre.
+		npm install
+	h3#building Building
+	p
+		| Currently, I am using the built-in
+		a(href="http://gruntjs.com") grunt
+		| settings which ship with the
+		a(href="http://yeoman.io") yeoman
+		| generator I used.
+	h3#unit-tests Unit Tests
+	p
+		| Unit tests are written using
+		a(href="http://qunitjs.com/") qunit
+		| .  A
+		a(href="https://code.google.com/p/js-test-driver/") js test driver
+		| configuration is also included for in-IDE testing (can use PHPStorm), but tests can also be run from the
+		code test/hash-tabs.html
+		| file.
+
+block scripts
+	script(src = "bower_components/jquery/dist/jquery.min.js")
+	script(src = "bower_components/hash-tabs/dist/jquery.hash-tabs.min.js")
+	script(src = "scripts/demo.js")

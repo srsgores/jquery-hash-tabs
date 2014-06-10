@@ -1,0 +1,51 @@
+/* =============================================================================
+Imports
+========================================================================== */
+/* Base imports */
+@import "compass/utilities";
+@import "partials/_variables.scss";
+@import "partials/_helpers.scss";
+@import "compass/css3/pie";
+@import "compass/css3";
+@import "partials/_variables.scss";
+@import "partials/_grids.scss";
+@import "partials/icomoon/_icomoon.scss";
+@import "partials/_mixins.scss";
+
+/* Optional imports */
+@import "partials/_animations"; //animations need to be first because of the delay mixin (if you want to use it)
+@import "partials/_type.scss";
+@import "partials/_forms.scss";
+@import "partials/addons/_toolbar.scss";
+@import "partials/_nav.scss";
+@import "partials/_media-queries";
+
+/* =============================================================================
+Main Styles
+========================================================================== */
+body {
+	@extend %textColour;
+	@extend %bodyBackgroundColour;
+	line-height: $lineHeight;
+	font-family: $baseFontFamily;
+	font-size: $baseFontSize;
+	@extend %margin-none;
+	@include text-size-adjust(100%);
+}
+
+.box {
+	@extend %normal-margin;
+	@extend %border-box;
+	@extend %normal-padding;
+	@extend %bordered;
+	@extend %transition-all;
+}
+
+
+/* =============================================================================
+images
+========================================================================== */
+img, object, embed {
+	max-width: $rowWidth; //prevent images from going beyond the viewport
+	@extend %border-none;
+}

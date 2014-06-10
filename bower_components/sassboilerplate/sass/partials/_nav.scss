@@ -1,0 +1,90 @@
+nav {
+	background: darken($tertiaryColour, 15);
+	@extend %bordered-bottom;
+	border-bottom: $borderWidth $borderStyle darken($borderColour, 15%);
+	@extend %row-width;
+	@extend %margin-none;
+	@extend %padding-none;
+	ul {
+		@extend %no-list-style;
+		@extend %margin-none;
+		@extend %padding-none;
+		@include background(linear-gradient($bodyBackground, $tertiaryColour));
+		padding: 0;
+		//normal menu styling here
+		a {
+			@extend %textColour;
+			@extend %border-box;
+			@extend %bordered-right;
+			@extend %inline;
+			padding: $paddingSmall $padding;
+			@extend %text-decoration-none;
+			@include text-shadow(0 1px $inverseTextColour);
+			margin-right: -#{$marginMini};
+			&:active, &.active {
+				background: $tertiaryColour;
+				@include box-shadow(inset 0 0 1.1em -0.4em darken($tertiaryColour, 15));
+			}
+			&:hover {
+				background: ($tertiaryColour - 15);
+			}
+		}
+		ul {
+			//nested menu 1
+			@extend %no-list-style;
+			@extend %opacity-0;
+			@extend %invisible;
+			@extend %absolute;
+			@extend %bordered;
+			@extend %padding-none;
+			z-index: 3;
+			top: 100%;
+			@include transition(opacity $transitionTime $transitionFunction);
+
+			ul {
+				//nested menu 2
+				left: 100%;
+				top: 0;
+				z-index: 10;
+			}
+			li {
+				a {
+					border-right: 0;
+					@extend %bordered-bottom;
+					white-space: nowrap;
+					margin: 0;
+				}
+				&:hover {
+					> ul {
+						@extend %opacity-1;
+						@extend %visible;
+					}
+				}
+			}
+		}
+		li {
+			@extend %inline;
+			@extend %relative;
+			&:hover {
+				> ul {
+					@extend %block;
+					@extend %opacity-1;
+					@extend %visible;
+				}
+			}
+		}
+	}
+	@extend %clearfix;
+}
+
+//responsive button
+.responsive-grid {
+	@extend button;
+	@include text-shadow(none);
+	@extend %margin-none;
+	@extend %show-phone;
+}
+
+.toggle-nav {
+	@extend %visuallyhidden;
+}

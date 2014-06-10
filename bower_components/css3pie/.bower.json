@@ -1,0 +1,32 @@
+{
+  "name": "css3pie",
+  "homepage": "https://github.com/PepijnSenders/css3pie",
+  "authors": [
+    "Pepijn Senders <pepijn@bekokstooft.nl>"
+  ],
+  "description": "Bower package for css3pie http://css3pie.com/",
+  "keywords": [
+    "pie",
+    "css3",
+    "PIE",
+    "css",
+    "css3pie"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "b5e68ce841",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "b5e68ce8414bc0d7b451922901e093b78df32b11"
+  },
+  "_source": "git://github.com/PepijnSenders/css3pie.git",
+  "_target": "*",
+  "_originalSource": "css3pie"
+}

@@ -2,7 +2,8 @@
   "name": "hash-tabs",
   "version": "1.0.0",
   "dependencies": {
-    "sassboilerplate": "*"
+    "sassboilerplate": "*",
+    "history.js": "~1.8.0"
   },
   "devDependencies": {
     "qunit": "~1.12.0",

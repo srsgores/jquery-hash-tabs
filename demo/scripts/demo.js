@@ -17,8 +17,7 @@
     var $tabs;
     return $tabs = $(".tab-container").hashTabs({
       debug: true,
-      keyboard: true,
-      smoothScroll: true
+      keyboard: true
     });
   });
 

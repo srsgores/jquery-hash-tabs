@@ -60,7 +60,17 @@
         			@property [Boolean] whether to apply smooth scrolling, in which the screen scrolls up to the top of the tab navigation panel when any tab is clicked
         			@note Enabling smooth scrolling will override the default browser behaviour, in which the browser "jumps" to the top of an anchor
          */
-        smoothScroll: false,
+        smoothScroll: {
+          enabled: true,
+          offset: 100,
+          duration: 1000
+        },
+
+        /*
+        			@property [Boolean] whether to enable html5 history API to navigate back/forwards amongst selected tabs
+        			@note Defaults to `false` on non-html5-supported browsers
+         */
+        history: true,
         debug: false
       };
 
@@ -126,7 +136,10 @@
         this.listenClick(this.$tabButtons);
         this.updateHash();
         if (this.options.keyboard === true) {
-          return this.listenKeyboard();
+          this.listenKeyboard();
+        }
+        if (this.options.history === true) {
+          return this.enableHistory();
         }
       };
 
@@ -142,7 +155,7 @@
         var self;
         self = this;
         return $tabButtons.on("click", function() {
-          var _ref;
+          var targetHref, _ref;
           if (self.options.debug === true) {
             console.log("Active tab is ");
             if (self.options.debug === true) {
@@ -162,16 +175,22 @@
           });
           self.$activeTabButton = $(this);
           self.$activeTab = (_ref = $(this)[0].correspondingTabContent) != null ? _ref.show() : void 0;
-          if (self.options.smoothScroll === true) {
-            $("html, body").animate({
-              scrollTop: self.$tabNav.offset().top
-            }, 1000);
+          if (self.options.smoothScroll.enabled === true) {
+            $("html, body").stop().animate({
+              scrollTop: self.$tabNav.offset().top - self.options.smoothScroll.offset
+            }, self.options.smoothScroll.duration);
           }
           if (self.options.keyboard === true) {
             if ($(this)[0].href === ("#" + (self.options.initialTabId != null)) || $(this)[0].index === self.options.initialTabIndex) {
               false;
             }
-            window.location.hash = $(this)[0].href.split("#")[1];
+            targetHref = $(this)[0].href;
+            console.log("Pushed state " + targetHref);
+            if ((window.history != null) && self.options.history === true) {
+              history.pushState(self.options, "HashTabs", targetHref);
+            } else {
+              window.location.hash = targetHref.split("#")[1];
+            }
             return false;
           }
         });
@@ -196,6 +215,24 @@
             return this.triggerTabByIndex(this.options.initialTabIndex);
           }
         }
+      };
+
+      HashTabs.prototype.enableHistory = function() {
+        return $(window).on("popstate", (function(_this) {
+          return function(e) {
+            var previousTabUrl;
+            if (_this.options.debug === true) {
+              console.dir(e);
+            }
+            if (e.originalEvent.state != null) {
+              previousTabUrl = location.hash;
+              if (_this.options.debug === true) {
+                console.log("Pushing url " + previousTabUrl);
+              }
+              return _this.triggerTab(previousTabUrl);
+            }
+          };
+        })(this));
       };
 
 

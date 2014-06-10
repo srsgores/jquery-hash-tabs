@@ -52,7 +52,16 @@
 			@property [Boolean] whether to apply smooth scrolling, in which the screen scrolls up to the top of the tab navigation panel when any tab is clicked
 			@note Enabling smooth scrolling will override the default browser behaviour, in which the browser "jumps" to the top of an anchor
 			###
-			smoothScroll: off
+			smoothScroll:
+				enabled: on
+			# @property offset amount, in pixels from top of main tab navigation, when smooth scrolling is enabled
+				offset: 100
+				duration: 1000
+			###
+			@property [Boolean] whether to enable html5 history API to navigate back/forwards amongst selected tabs
+			@note Defaults to `false` on non-html5-supported browsers
+			###
+			history: on
 			# @property [Boolean] whether to enable debugging logging statements from within the console.  Enable this if you are having trouble identifying an error
 			debug: off
 
@@ -116,6 +125,7 @@
 			@listenClick(@$tabButtons)
 			@updateHash()
 			@listenKeyboard() if @options.keyboard is on
+			@enableHistory() if @options.history is on
 		###
 		Listen to click events on the tab anchor elements, showing the corresponding tab, and adding WAI-ARIA attributes
 
@@ -141,14 +151,18 @@
 				})
 				self.$activeTabButton = $(this)
 				self.$activeTab = $(this)[0].correspondingTabContent?.show()
-				if self.options.smoothScroll is on
-					$("html, body").animate
-						scrollTop: self.$tabNav.offset().top
-					, 1000
+				if self.options.smoothScroll.enabled is on
+					$("html, body").stop().animate
+						scrollTop: self.$tabNav.offset().top - self.options.smoothScroll.offset
+					, self.options.smoothScroll.duration
 				if self.options.keyboard is on
 					# fix for FF and Chrome not performing hash update on triggered click
 					false if $(this)[0].href is "##{self.options.initialTabId?}" or $(this)[0].index is self.options.initialTabIndex
-					window.location.hash = $(this)[0].href.split("#")[1]
+					targetHref = $(this)[0].href
+					console.log "Pushed state #{targetHref}"
+					if window.history? and self.options.history is on
+						history.pushState(self.options, "HashTabs", targetHref)
+					else window.location.hash = targetHref.split("#")[1]
 					false
 			)
 
@@ -164,6 +178,15 @@
 				@triggerTab(currentHashURL)
 			else # show default
 				if @options.initialTabId? then @triggerTab(@options.initialTabId) else @triggerTabByIndex(@options.initialTabIndex)
+
+		enableHistory: ->
+			$(window).on("popstate", (e) =>
+				console.dir e if @options.debug is on
+				if e.originalEvent.state?
+					previousTabUrl = location.hash
+					console.log "Pushing url #{previousTabUrl}" if @options.debug is on
+					@triggerTab(previousTabUrl)
+			)
 		###
 		Trigger a given tab, provided its `id`
 

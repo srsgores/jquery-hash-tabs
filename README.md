@@ -21,8 +21,30 @@ jQuery(function($) {
 </script>
 ```
 
+## Features
+
+* Hash-friendly URLs, so your states are saved.  **Try refreshing!**
+* Compatible with IE8 and up
+* Customizable and configurable.  Use custom selectors for your tabs.  Default uses ``nav`` and ``section`` elements
+* ``noscript``-friendly.  Works very will in non-javascript browsers.  When tabs can't be loaded, content feels like normal, as hashes are supported natively by the browser.
+
 ## Documentation
 Documentation is generated using [codoc](https://github.com/coffeedoc/codo).  [Please refer to the API docs]().
+
+## Options
+
+| Option            	| Default     	| Description                                                                           	|
+|-------------------	|-------------	|---------------------------------------------------------------------------------------	|
+| ``tabPanelSelector``  	| ``"section"``   	| jQuery selector for individual tab panes (or tab content)                             	|
+| ``tabNavSelector``    	| ``"nav"``       	| jQuery selector for main navigation element, with tab buttons or links                	|
+| ``tabButtonSelector`` 	| ``"a"``         	| jQuery selector for anchor tags or links contained within the main navigation element 	|
+| ``initialTabIndex``   	| ``0``           	| initial tab's index to show when the tabs are initialized                             	|
+| ``initialTabId``      	| ``null``        	| initial tab's `id` or hash to show when tabs are initialized                          	|
+| ``tabContainerClass`` 	| ``"hash-tabs"`` 	| class to append to initialized hash tabs                                              	|
+| ``keyboard``          	| ``true``        	| Enable keyboard navigation using arrow keys                                           	|
+| ``smoothScroll``      	| ``true``        	| Enable smooth scrolling to top of tabs when a tab is selected                         	|
+| ``history``           	| ``true``        	| Enable HTML5 history api, to navigate backwards/forwards amongst selected tabs        	|
+| ``debug``             	| ``false``       	| Enable logging statements to diagnose any problems  |
 
 ## API
 ### Trigger A Given Tab

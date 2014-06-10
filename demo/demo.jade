@@ -35,10 +35,79 @@ block content
 				+hashTabs(tabs)
 	section#quick-start
 		h1 Quick Start
-		p Use any of the following methods:
-		ol
-			li Bower
-			li Fork
+		p
+			| Download the
+			a(href="https://raw.github.com/srsgores/jquery-hash-tabs/master/dist/jquery.hash-tabs.min.js") production version
+			| or the
+			a(href="https://raw.github.com/srsgores/jquery-hash-tabs/master/dist/jquery.hash-tabs.js") development version
+			| .
+		p In your web page:
+		pre.
+			<script src="/bower_components/jquery/dist/jquery.min.js"></script>
+			<script src="/bower_components/hash-tabs/dist/jquery.hash-tabs.min.js"></script>
+			<script>
+			jQuery(function($) {
+				$(".myTabContainer").hashTabs(); // "create hash tabs off of all elements with class myTabContainer"
+			});
+			</script>
+
+	h2#documentation Documentation
+	p
+		| Documentation is generated using
+		a(href="https://github.com/coffeedoc/codo") codoc
+		| .
+		a(href="") Please refer to the API docs
+		| .
+	h2#api API
+	h3#trigger-a-given-tab Trigger A Given Tab
+	p
+		| (AKA trigger tab by
+		code id
+		| )
+	pre.
+		$(".myTabs").hashTabs("triggerTab", "chocolates") // triggers tab with id #chocolates
+	h3#trigger-a-given-tab-by-index Trigger A Given Tab by Index
+	pre.
+		$(".myTabs").hashTabs("triggerTabByIndex", 1) // triggers second tab (with index 1) in tab set
+	h3#trigger-next-tab-to-right Trigger Next Tab (to Right)
+	pre.
+		$(".myTabs").hashTabs("selectNext") // triggers right-most tab to current tab
+	h3#trigger-previous-tab-to-left Trigger Previous Tab (to Left)
+	pre.
+		$(".myTabs").hashTabs("selectPrevious") // triggers left-most tab to current tab
+	p
+		strong
+			| NOTE: tabs will
+			em cycle
+			| in a clockwise direction
+		| .  For example, if you are on the last tab to the right, selecting next will fold back over to the first tab (0) to the left
+	h2#contributing Contributing
+	p
+		| First, make sure to install all
+		a(href="http://bower.io") bower
+		| dependencies:
+	pre.
+		bower install
+
+	p Next, install node dependencies:
+	pre.
+		npm install
+	h3#building Building
+	p
+		| Currently, I am using the built-in
+		a(href="http://gruntjs.com") grunt
+		| settings which ship with the
+		a(href="http://yeoman.io") yeoman
+		| generator I used.
+	h3#unit-tests Unit Tests
+	p
+		| Unit tests are written using
+		a(href="http://qunitjs.com/") qunit
+		| .  A
+		a(href="https://code.google.com/p/js-test-driver/") js test driver
+		| configuration is also included for in-IDE testing (can use PHPStorm), but tests can also be run from the
+		code test/hash-tabs.html
+		| file.
 
 block scripts
 	script(src = "../bower_components/jquery/dist/jquery.min.js")

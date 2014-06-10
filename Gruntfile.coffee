@@ -36,7 +36,7 @@ module.exports = (grunt) ->
 				stripBanners: true
 
 			dist:
-				src: ["src/<%= pkg.name %>.js"]
+				src: ["src/jquery.<%= pkg.name %>.js"]
 				dest: "dist/jquery.<%= pkg.name %>.js"
 
 		uglify:

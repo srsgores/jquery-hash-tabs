@@ -168,4 +168,3 @@ node_modules
 sass/*.css
 .sass-cache
 bower_components
-dist

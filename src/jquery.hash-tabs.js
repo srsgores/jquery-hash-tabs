@@ -246,7 +246,7 @@
        */
 
       HashTabs.prototype.triggerTab = function(url) {
-        return this.$tabButtons.filter("[href*=" + url + "]").trigger("click");
+        return this.$tabButtons.filter("[href*='" + url + "']").trigger("click");
       };
 
 

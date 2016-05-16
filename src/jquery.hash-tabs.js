@@ -185,7 +185,9 @@
               false;
             }
             targetHref = $(this)[0].href;
-            console.log("Pushed state " + targetHref);
+            if (this.options.debug === true) {
+              console.log("Pushed state " + targetHref);
+            }
             if ((window.history != null) && self.options.history === true) {
               history.pushState(self.options, "HashTabs", targetHref);
             } else {

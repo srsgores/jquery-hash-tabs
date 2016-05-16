@@ -159,7 +159,7 @@
 					# fix for FF and Chrome not performing hash update on triggered click
 					false if $(this)[0].href is "##{self.options.initialTabId?}" or $(this)[0].index is self.options.initialTabIndex
 					targetHref = $(this)[0].href
-					console.log "Pushed state #{targetHref}"
+					console.log "Pushed state #{targetHref}" if @options.debug is on
 					if window.history? and self.options.history is on
 						history.pushState(self.options, "HashTabs", targetHref)
 					else window.location.hash = targetHref.split("#")[1]

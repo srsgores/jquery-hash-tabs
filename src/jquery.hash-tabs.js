@@ -155,7 +155,7 @@
         var self;
         self = this;
         return $tabButtons.on("click", function(e) {
-          var ref, targetHref;
+          var ref, targetHash, targetHref;
           if (self.options.debug === true) {
             console.log("Active tab is ");
             if (self.options.debug === true) {
@@ -185,13 +185,14 @@
               false;
             }
             targetHref = $(this)[0].href;
-            if (this.options.debug === true) {
+            targetHash = targetHref.split("#")[1];
+            if (self.options.debug === true) {
               console.log("Pushed state " + targetHref);
             }
             if ((window.history != null) && self.options.history === true) {
-              history.pushState(self.options, "HashTabs", targetHref);
+              history.pushState(self.options, "HashTabs", "#" + targetHash);
             } else {
-              window.location.hash = targetHref.split("#")[1];
+              window.location.hash = targetHash;
             }
             return false;
           }

@@ -4,7 +4,7 @@
 	hash-tabs.coffee
 
 	@author Sean
-	
+
 	@note Created on 2014-06-07 by PhpStorm
 	@note uses Codoc
 	@see https://github.com/coffeedoc/codo
@@ -196,7 +196,7 @@
 			$(".myTabs").hashTabs("triggerTab", "chocolates") // triggers tab with id #chocolates
 		###
 		triggerTab: (url) ->
-			@$tabButtons.filter("[href*=#{url}]").trigger("click")
+			@$tabButtons.filter("[href*='#{url}']").trigger("click")
 		###
 		Trigger a given tab, provided its index
 

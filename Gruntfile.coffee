@@ -4,7 +4,7 @@
 	Gruntfile.coffee
 
 	@author Sean
-	
+
 	@note Created on 2014-06-07 by PhpStorm
 	@note uses Codoc
 	@see https://github.com/coffeedoc/codo
